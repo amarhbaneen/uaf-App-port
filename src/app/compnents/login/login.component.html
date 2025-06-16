@@ -1,0 +1,17 @@
+<div class="login-wrapper">
+  <p-card header="Login">
+    <div class="p-fluid">
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" type="text" pInputText [(ngModel)]="username" />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" pInputText [(ngModel)]="password" />
+      </div>
+
+      <button pButton label="Login" class="w-full mt-2" (click)="login()"></button>
+    </div>
+  </p-card>
+</div>
