@@ -2,6 +2,48 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.2.
 
+## Custom PrimeNG Theme: eg-factory
+
+This project implements a custom theme for PrimeNG components called "eg-factory". The theme provides consistent styling across all PrimeNG UI components used in the application.
+
+### Theme Structure
+
+The theme follows PrimeNG's theming system architecture:
+- Located in `src/app/theme/eg-factory/`
+- Each UI component has its own theme configuration file (e.g., `accordion.ts`, `button.ts`, etc.)
+- All component themes are imported and combined in `index.ts` to create a complete theme preset
+- The theme satisfies the `Preset` type from PrimeNG's theming system
+
+### Theme Implementation
+
+The theme is implemented using PrimeNG's design token system, which allows for:
+- Consistent styling across components
+- Easy maintenance through centralized design tokens
+- Support for both light and dark modes
+
+### Theme Configuration
+
+The theme is configured in `app.config.ts` using PrimeNG's provider:
+
+```typescript
+providePrimeNG({
+  theme: {
+    preset: MyCustomTheme,
+    options: {
+      darkModeSelector: '.dark'
+    }
+  }
+})
+```
+
+### Dark Mode Support
+
+The theme includes dark mode support which is activated when the `.dark` class is applied to an element (typically the body or a container element). This can be toggled programmatically or through user preferences.
+
+### Using the Theme
+
+The theme is automatically applied to all PrimeNG components used in the application. No additional steps are required to use the themed components.
+
 ## Development server
 
 To start a local development server, run:
@@ -57,3 +99,5 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+For more information about PrimeNG theming, visit the [PrimeNG Theming Documentation](https://primeng.org/theming).
