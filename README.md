@@ -1,5 +1,11 @@
 # UafAppPort
 
+A modern Angular application for user authentication and factory management.
+
+## Overview
+
+UafAppPort (User Authentication Factory Application Portal) is a web application built with Angular that provides a secure authentication system and a dashboard interface for factory management. The application features a custom PrimeNG theme for consistent styling across all components.
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.2.
 
 ## Custom PrimeNG Theme: eg-factory
@@ -96,8 +102,81 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
+## Project Structure
+
+The project follows a standard Angular application structure with some custom organization:
+
+```
+uaf-App-port/
+├── src/
+│   ├── app/
+│   │   ├── compnents/           # Application components
+│   │   │   ├── dashboard/       # Dashboard component
+│   │   │   ├── login/           # Authentication component
+│   │   │   └── navbar/          # Navigation component
+│   │   ├── theme/
+│   │   │   └── eg-factory/      # Custom PrimeNG theme
+│   │   ├── app.config.ts        # Application configuration
+│   │   ├── app.html             # Main application template
+│   │   ├── app.routes.ts        # Application routing
+│   │   └── app.ts               # Main application component
+│   ├── assets/                  # Static assets
+│   └── styles.scss              # Global styles
+├── docs/                        # Documentation
+└── ...                          # Configuration files
+```
+
+## Features
+
+- **Authentication System**: Secure login functionality
+- **Dashboard Interface**: Central hub for application features
+- **Custom PrimeNG Theme**: Consistent styling across all components
+- **Dark Mode Support**: Toggle between light and dark themes
+- **Responsive Design**: Works on desktop and mobile devices
+
+## Installation
+
+1. **Prerequisites**:
+   - Node.js (v18 or later)
+   - npm (v9 or later)
+
+2. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd uaf-app-port
+   ```
+
+3. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+4. **Start the development server**:
+   ```bash
+   npm start
+   ```
+
+5. **Access the application**:
+   Open your browser and navigate to `http://localhost:4200/`
+
+## Usage
+
+1. **Login**: Enter your credentials on the login page
+2. **Dashboard**: After successful login, you'll be redirected to the dashboard
+3. **Theme Toggle**: Use the theme toggle button in the navbar to switch between light and dark modes
+4. **Logout**: Click the logout button in the navbar to return to the login page
+
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
 For more information about PrimeNG theming, visit the [PrimeNG Theming Documentation](https://primeng.org/theming).
+
+## Documentation
+
+Additional documentation can be found in the `docs/` directory:
+
+- [Theme Documentation](docs/theme-documentation.md): Detailed information about the custom PrimeNG theme
+- [Components Documentation](docs/components-documentation.md): Information about the application's components and their interactions
+- [Development Guide](docs/development-guide.md): Guide for developers who want to contribute to the project
+- [API Documentation](docs/api-documentation.md): Template for API endpoints and services (for future development)
