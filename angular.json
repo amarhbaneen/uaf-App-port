@@ -18,6 +18,9 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "src/main.ts",
+            "outputPath": "dist/uaf-App-port",
+            "index": "src/index.html",
+
             "polyfills": [
               "zone.js"
             ],
@@ -94,5 +97,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "87a6018e-2800-4eb7-9253-5d04339e07bf"
   }
 }
