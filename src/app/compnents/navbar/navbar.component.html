@@ -3,7 +3,7 @@
     <span class="text-xl font-bold">UAF Pilot</span>
   </ng-template>
   <ng-template pTemplate="end">
-    <button pButton label="Toggle Theme" (click)="toggleTheme()" class="p-button-text"></button>
-    <button pButton label="Logout" icon="pi pi-sign-out" (click)="logout()" class="p-button-text"></button>
+    <button pButton type="button" pTooltip="Toggle Theme" [icon]="themeIcon" (click)="toggleTheme()" class="p-button-text"></button>
+    <button pButton type="button" pTooltip="logout" icon="pi pi-sign-out" (click)="logout()" class="p-button-sm"></button>
   </ng-template>
 </p-menubar>
