@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Menubar} from 'primeng/menubar';
 import {PrimeTemplate} from 'primeng/api';
@@ -17,11 +17,20 @@ import {Tooltip} from 'primeng/tooltip';
   ],
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
+
+export class NavbarComponent implements OnInit{
   isDarkMode = false;
   themeIcon = 'pi pi-moon';
 
   constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.isDarkMode = localStorage.getItem('theme') === 'dark';
+    this.themeIcon = this.isDarkMode ? 'pi pi-sun' : 'pi pi-moon';
+
+    // Toggle the class on <body> or use the service if you have one
+    document.body.classList.toggle('dark', this.isDarkMode);
+  }
 
   toggleTheme() {
     this.isDarkMode = !this.isDarkMode;
@@ -29,6 +38,7 @@ export class NavbarComponent {
 
     // Toggle the class on <body> or use the service if you have one
     document.body.classList.toggle('dark', this.isDarkMode);
+    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
   }
 
   logout() {
