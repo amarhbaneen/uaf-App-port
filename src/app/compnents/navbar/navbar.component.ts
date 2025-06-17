@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {Menubar} from 'primeng/menubar';
 import {PrimeTemplate} from 'primeng/api';
 import {ButtonDirective} from 'primeng/button';
+import {Tooltip} from 'primeng/tooltip';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +12,8 @@ import {ButtonDirective} from 'primeng/button';
   imports: [
     Menubar,
     PrimeTemplate,
-    ButtonDirective
+    ButtonDirective,
+    Tooltip
   ],
   styleUrls: ['./navbar.component.scss']
 })
