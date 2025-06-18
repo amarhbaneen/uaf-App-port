@@ -12,3 +12,35 @@
   right: 20px;
 }
 
+.login-title {
+  text-align: center;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 600px;
+  min-height: 550px;
+  padding: 2rem;
+  // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 10px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 1rem;
+  background-color: var(--surface-card);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.input-lg {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+}
+
+.login-button {
+  width: 50% !important;
+  font-size: 1.2rem;
+}

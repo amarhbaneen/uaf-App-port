@@ -1,20 +1,24 @@
 <div class="login-wrapper">
   <div class="theme-toggle">
-    <button pButton type="button" pTooltip="Toggle Theme" [icon]="themeIcon" (click)="toggleTheme()" class="p-button-text p-button-rounded"></button>
+    <button pButton type="button" pTooltip="Toggle Theme" [icon]="themeIcon" (click)="toggleTheme()"
+      class="p-button-text p-button-rounded"></button>
   </div>
-  <p-card header="Login">
-    <div class="p-fluid">
+  <p-card class="login-card">
+    <h2 class="login-title">Login</h2>
+    <div class="p-fluid login-form">
       <div class="field">
-        <label for="username">Username</label>
-        <input id="username" type="text" pInputText [(ngModel)]="username" />
+        <label for="username">Username</label><br />
+        <input id="username" type="text" pInputText [(ngModel)]="username" class="input-lg" />
       </div>
 
       <div class="field">
-        <label for="password">Password</label>
-        <input id="password" type="password" pInputText [(ngModel)]="password" />
+        <label for="password">Password</label><br />
+        <input id="password" type="password" pInputText [(ngModel)]="password" class="input-lg" />
       </div>
 
-      <button pButton label="Login" class="w-full mt-2" (click)="login()"></button>
+      <button pButton type="button" label="Login" class="p-button-primary w-full login-button"
+        (click)="login()"></button>
     </div>
+
   </p-card>
 </div>
