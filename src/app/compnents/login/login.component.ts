@@ -1,10 +1,11 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import {Card} from 'primeng/card';
-import {FormsModule} from '@angular/forms';
-import {ButtonDirective} from 'primeng/button';
-import {InputText} from 'primeng/inputtext';
-import {Tooltip} from 'primeng/tooltip';
+import { Card } from 'primeng/card';
+import { FormsModule } from '@angular/forms';
+import { ButtonDirective } from 'primeng/button';
+import { InputText } from 'primeng/inputtext';
+import { Tooltip } from 'primeng/tooltip';
+
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
   isDarkMode = false;
   themeIcon = 'pi pi-moon';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit() {
     // Check if dark mode is enabled in localStorage
