@@ -2,6 +2,41 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.0.
 
+## Installation
+
+### NPM Installation
+
+To install the UafComponents library from NPM, run:
+
+```bash
+npm install @amarextraholding/uaf-components
+```
+
+### Peer Dependencies
+
+This library requires the following peer dependencies:
+
+```bash
+npm install primeng primeicons primeflex @primeng/themes
+```
+
+### Usage
+
+Import the UafComponentsModule in your application module:
+
+```typescript
+import { UafComponentsModule } from '@amarextraholding/uaf-components';
+
+@NgModule({
+  imports: [
+    // other imports
+    UafComponentsModule
+  ],
+  // ...
+})
+export class AppModule { }
+```
+
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:

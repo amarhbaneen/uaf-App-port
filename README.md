@@ -172,6 +172,45 @@ For more information on using the Angular CLI, including detailed command refere
 
 For more information about PrimeNG theming, visit the [PrimeNG Theming Documentation](https://primeng.org/theming).
 
+## UAF Components Library
+
+This project includes a reusable UI components library called `@amarextraholding/uaf-components` that can be installed separately in other Angular projects.
+
+### Installing from NPM
+
+To install the UAF Components library from NPM, run:
+
+```bash
+npm install @amarextraholding/uaf-components
+```
+
+### Required Peer Dependencies
+
+The library requires the following peer dependencies:
+
+```bash
+npm install primeng primeicons primeflex @primeng/themes
+```
+
+### Basic Usage
+
+Import the UafComponentsModule in your application module:
+
+```typescript
+import { UafComponentsModule } from '@amarextraholding/uaf-components';
+
+@NgModule({
+  imports: [
+    // other imports
+    UafComponentsModule
+  ],
+  // ...
+})
+export class AppModule { }
+```
+
+For more detailed documentation about the components library, see the [UAF Components Documentation](docs/uaf-components-documentation.md).
+
 ## Documentation
 
 Additional documentation can be found in the `docs/` directory:
