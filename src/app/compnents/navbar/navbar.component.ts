@@ -41,6 +41,10 @@ export class NavbarComponent implements OnInit{
     localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
   }
 
+  navigateToSettings() {
+    this.router.navigate(['/settings']);
+  }
+
   logout() {
     // Placeholder logout logic
     this.router.navigate(['/login']);

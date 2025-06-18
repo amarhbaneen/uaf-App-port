@@ -1,0 +1,58 @@
+<app-navbar></app-navbar>
+
+<div class="p-4">
+  <h2>Settings</h2>
+
+  <div class="grid mt-3">
+    <div class="col-12 md:col-6 lg:col-4">
+      <p-card header="Appearance">
+        <div class="flex align-items-center justify-content-between mb-3">
+          <label for="darkMode">Dark Mode</label>
+          <p-inputSwitch id="darkMode" [(ngModel)]="isDarkMode" (onChange)="toggleDarkMode()"></p-inputSwitch>
+        </div>
+
+        <p-divider></p-divider>
+
+        <div class="flex align-items-center justify-content-between">
+          <span>Theme</span>
+          <span class="text-primary">eg-factory</span>
+        </div>
+      </p-card>
+    </div>
+
+    <div class="col-12 md:col-6 lg:col-4">
+      <p-card header="User Preferences">
+        <div class="flex flex-column gap-3">
+          <div class="flex align-items-center justify-content-between">
+            <label>Language</label>
+            <span>English</span>
+          </div>
+
+          <p-divider></p-divider>
+
+          <div class="flex align-items-center justify-content-between">
+            <label>Notifications</label>
+            <p-inputSwitch></p-inputSwitch>
+          </div>
+        </div>
+      </p-card>
+    </div>
+
+    <div class="col-12 md:col-6 lg:col-4">
+      <p-card header="Application">
+        <div class="flex flex-column gap-3">
+          <div class="flex align-items-center justify-content-between">
+            <label>Version</label>
+            <span>1.0.0</span>
+          </div>
+
+          <p-divider></p-divider>
+
+          <div class="flex justify-content-end">
+            <button pButton label="Reset to Defaults" class="p-button-outlined"></button>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>
