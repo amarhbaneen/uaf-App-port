@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import {Card} from 'primeng/card';
 import {FormsModule} from '@angular/forms';
@@ -28,18 +28,43 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
+    // Check if dark mode is enabled in localStorage
     this.isDarkMode = localStorage.getItem('theme') === 'dark';
-    this.themeIcon = this.isDarkMode ? 'pi pi-sun' : 'pi pi-moon';
+    this.updateThemeIcon();
 
-    // Toggle the class on <body> or use the service if you have one
+    // Apply the theme based on localStorage
     document.body.classList.toggle('dark', this.isDarkMode);
+
+    // Add a MutationObserver to watch for changes to the body's class list
+    this.watchBodyClassChanges();
+  }
+
+  // Watch for changes to the body's class list (for when theme is toggled from navbar)
+  private watchBodyClassChanges() {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          const bodyHasDarkClass = document.body.classList.contains('dark');
+          if (this.isDarkMode !== bodyHasDarkClass) {
+            this.isDarkMode = bodyHasDarkClass;
+            this.updateThemeIcon();
+          }
+        }
+      });
+    });
+
+    observer.observe(document.body, { attributes: true });
+  }
+
+  private updateThemeIcon() {
+    this.themeIcon = this.isDarkMode ? 'pi pi-sun' : 'pi pi-moon';
   }
 
   toggleTheme() {
     this.isDarkMode = !this.isDarkMode;
-    this.themeIcon = this.isDarkMode ? 'pi pi-sun' : 'pi pi-moon';
+    this.updateThemeIcon();
 
-    // Toggle the class on <body> or use the service if you have one
+    // Toggle the class on <body>
     document.body.classList.toggle('dark', this.isDarkMode);
     localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
   }
