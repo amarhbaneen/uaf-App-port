@@ -9,7 +9,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 To install the UafComponents library from NPM, run:
 
 ```bash
-npm install @amarextraholding/uaf-components
+npm install @amarhbaneen/uaf-components
 ```
 
 ### Peer Dependencies
@@ -25,7 +25,7 @@ npm install primeng primeicons primeflex @primeng/themes
 Import the UafComponentsModule in your application module:
 
 ```typescript
-import { UafComponentsModule } from '@amarextraholding/uaf-components';
+import { UafComponentsModule } from '@amarhbaneen/uaf-components';
 
 @NgModule({
   imports: [
@@ -35,6 +35,77 @@ import { UafComponentsModule } from '@amarextraholding/uaf-components';
   // ...
 })
 export class AppModule { }
+```
+
+### Theme Usage
+
+The library includes a built-in theme that provides styling for all components, including dark mode support. To use the theme, import it in your application's styles.scss file:
+
+```scss
+// In your styles.scss file
+@import '@amarhbaneen/uaf-components/src/lib/themes/index';
+```
+
+The theme includes:
+- Basic styling for all components
+- Dark mode support (activated by adding the 'dark' class to the body element)
+- PrimeNG component styling
+- PrimeIcons and PrimeFlex CSS
+
+To toggle between light and dark mode, you can use the following code:
+
+```typescript
+// Toggle dark mode
+const isDarkMode = document.body.classList.contains('dark');
+document.body.classList.toggle('dark', !isDarkMode);
+localStorage.setItem('theme', !isDarkMode ? 'dark' : 'light');
+```
+
+### Available Components
+
+The library includes the following components:
+
+#### Login Component
+
+```html
+<uaf-login 
+  (loginSubmit)="onLoginSubmit($event)">
+</uaf-login>
+```
+
+With event handling in your component:
+
+```typescript
+onLoginSubmit(credentials: { username: string, password: string }) {
+  // Handle login logic here
+}
+```
+
+#### Navbar Component
+
+```html
+<uaf-navbar
+  (settingsClick)="onSettingsClick()"
+  (logoutClick)="onLogoutClick()">
+</uaf-navbar>
+```
+
+#### Dashboard Component
+
+```html
+<uaf-dashboard
+  (settingsClick)="onSettingsClick()"
+  (logoutClick)="onLogoutClick()">
+</uaf-dashboard>
+```
+
+#### Settings Component
+
+```html
+<uaf-settings
+  (settingsClick)="onSettingsClick()"
+  (logoutClick)="onLogoutClick()">
+</uaf-settings>
 ```
 
 ## Code scaffolding

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The UAF Components Library (`@amarextraholding/uaf-components`) is a collection of reusable UI components built with Angular and PrimeNG. These components are designed to provide a consistent user interface for applications that require user authentication and factory management features.
+The UAF Components Library (`@amarhbaneen/uaf-components`) is a collection of reusable UI components built with Angular and PrimeNG. These components are designed to provide a consistent user interface for applications that require user authentication and factory management features.
 
 ## Installation
 
@@ -11,7 +11,7 @@ The UAF Components Library (`@amarextraholding/uaf-components`) is a collection 
 To install the UAF Components library from NPM, run:
 
 ```bash
-npm install @amarextraholding/uaf-components
+npm install @amarhbaneen/uaf-components
 ```
 
 ### Required Peer Dependencies
@@ -27,7 +27,7 @@ npm install primeng primeicons primeflex @primeng/themes
 Import the UafComponentsModule in your application module:
 
 ```typescript
-import { UafComponentsModule } from '@amarextraholding/uaf-components';
+import { UafComponentsModule } from '@amarhbaneen/uaf-components';
 
 @NgModule({
   imports: [
@@ -43,7 +43,7 @@ For standalone components, you can import the module in your component:
 
 ```typescript
 import { Component } from '@angular/core';
-import { UafComponentsModule } from '@amarextraholding/uaf-components';
+import { UafComponentsModule } from '@amarhbaneen/uaf-components';
 
 @Component({
   selector: 'app-my-component',
@@ -61,126 +61,133 @@ export class MyComponent { }
 
 The library includes the following components:
 
-### Authentication Components
+### Login Component
 
-- **UafLoginComponent**: A login form component with validation and error handling
-- **UafRegisterComponent**: A registration form component with validation
-- **UafForgotPasswordComponent**: A form for password recovery
+A login form component with validation and error handling.
 
-### UI Components
+### Navbar Component
 
-- **UafButtonComponent**: Custom styled buttons with various states
-- **UafCardComponent**: Container component for content with consistent styling
-- **UafDialogComponent**: Modal dialog component for displaying information or forms
-- **UafTableComponent**: Data table component with sorting, filtering, and pagination
+Navigation bar component for application header with theme toggle and logout functionality.
 
-### Navigation Components
+### Dashboard Component
 
-- **UafNavbarComponent**: Navigation bar component for application header
-- **UafSidebarComponent**: Collapsible sidebar for application navigation
-- **UafBreadcrumbComponent**: Breadcrumb navigation component
+Main dashboard component that serves as a container for application content.
+
+### Settings Component
+
+Component for managing application settings.
 
 ## Component Usage Examples
 
 ### Login Component
 
-```typescript
+```html
 <uaf-login 
-  [loading]="isLoading"
   (loginSubmit)="onLoginSubmit($event)">
 </uaf-login>
 ```
 
-### Button Component
+With event handling in your component:
 
 ```typescript
-<uaf-button 
-  label="Submit" 
-  [loading]="isSubmitting"
-  (onClick)="handleSubmit()">
-</uaf-button>
+onLoginSubmit(credentials: { username: string, password: string }) {
+  // Handle login logic here
+}
 ```
 
-### Table Component
+### Navbar Component
 
-```typescript
-<uaf-table 
-  [data]="users" 
-  [columns]="columns"
-  [paginator]="true"
-  [rows]="10">
-</uaf-table>
+```html
+<uaf-navbar
+  (settingsClick)="onSettingsClick()"
+  (logoutClick)="onLogoutClick()">
+</uaf-navbar>
+```
+
+### Dashboard Component
+
+```html
+<uaf-dashboard
+  (settingsClick)="onSettingsClick()"
+  (logoutClick)="onLogoutClick()">
+</uaf-dashboard>
+```
+
+### Settings Component
+
+```html
+<uaf-settings
+  (settingsClick)="onSettingsClick()"
+  (logoutClick)="onLogoutClick()">
+</uaf-settings>
 ```
 
 ## Theming
 
-The UAF Components library uses PrimeNG's theming system and includes a custom theme called "eg-factory". This theme provides consistent styling across all components.
+The UAF Components library includes a built-in theme that provides styling for all components, including dark mode support.
 
-To use the custom theme, import it in your application's styles:
+To use the theme, import it in your application's styles.scss file:
 
 ```scss
 // In your styles.scss file
-@import '@amarextraholding/uaf-components/themes/eg-factory/theme.scss';
+@import '@amarhbaneen/uaf-components/src/lib/themes/index';
 ```
 
-## Services
+The theme includes:
+- Basic styling for all components
+- Dark mode support (activated by adding the 'dark' class to the body element)
+- PrimeNG component styling
+- PrimeIcons and PrimeFlex CSS
 
-The library includes several services that can be injected into your components:
-
-### UafAuthService
-
-Provides authentication-related functionality:
+To toggle between light and dark mode, you can use the following code:
 
 ```typescript
-import { UafAuthService } from '@amarextraholding/uaf-components';
-
-constructor(private authService: UafAuthService) { }
-
-login(username: string, password: string) {
-  this.authService.login(username, password).subscribe(
-    response => {
-      // Handle successful login
-    },
-    error => {
-      // Handle error
-    }
-  );
-}
+// Toggle dark mode
+const isDarkMode = document.body.classList.contains('dark');
+document.body.classList.toggle('dark', !isDarkMode);
+localStorage.setItem('theme', !isDarkMode ? 'dark' : 'light');
 ```
 
-### UafNotificationService
+For more detailed information about the theme, see the [Theme Documentation](./theme-documentation.md).
 
-Provides methods for displaying notifications:
+## Core Service
+
+The library includes a core service:
+
+### UafComponentsService
+
+Basic service provided by the library:
 
 ```typescript
-import { UafNotificationService } from '@amarextraholding/uaf-components';
+import { UafComponentsService } from '@amarhbaneen/uaf-components';
 
-constructor(private notificationService: UafNotificationService) { }
+constructor(private uafService: UafComponentsService) { }
 
-showSuccess() {
-  this.notificationService.showSuccess('Operation completed successfully');
-}
-
-showError() {
-  this.notificationService.showError('An error occurred');
-}
+// Use the service methods as needed
 ```
 
-## Directives
+## Updating the Library
 
-The library includes several directives that can be used in your templates:
+When a new version of the library is released, you can update it using npm:
 
-### UafTooltipDirective
-
-```typescript
-<button uafTooltip="Click to submit">Submit</button>
+```bash
+npm update @amarhbaneen/uaf-components
 ```
 
-### UafHighlightDirective
+Or to install a specific version:
 
-```typescript
-<div uafHighlight>This text will be highlighted</div>
+```bash
+npm install @amarhbaneen/uaf-components@x.y.z
 ```
+
+After updating, make sure to check the changelog for any breaking changes or new features.
+
+## Additional Resources
+
+- [Angular Documentation](https://angular.dev/)
+- [PrimeNG Documentation](https://primeng.org/)
+- [PrimeFlex Documentation](https://primeflex.org/)
+- [PrimeIcons Documentation](https://primeng.org/icons)
 
 ## Contribution
 

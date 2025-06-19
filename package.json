@@ -1,6 +1,6 @@
 {
-  "name": "@amarextraholding/uaf-components",
-  "version": "1.0.0",
+  "name": "@amarhbaneen/uaf-components",
+  "version": "1.1.2",
   "description": "User Authentication Factory UI Components Library with PrimeNG",
   "keywords": [
     "angular",
@@ -14,11 +14,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/uaf-components.git"
+    "url": "https://github.com/amarhbaneen/uaf-App-port"
   },
-  "homepage": "https://github.com/yourusername/uaf-components",
+  "homepage": "https://github.com/amarhbaneen/uaf-App-port",
   "bugs": {
-    "url": "https://github.com/yourusername/uaf-components/issues"
+    "url": "https://github.com/amarhbaneen/uaf-App-port/issues"
   },
   "scripts": {
     "ng": "ng",
