@@ -22,13 +22,23 @@ import { Divider } from 'primeng/divider';
 })
 export class SettingsComponent {
   isDarkMode = false;
+  notificationsEnabled = false;
 
   ngOnInit() {
-    this.isDarkMode = document.body.classList.contains('dark');
+    const savedTheme = localStorage.getItem('theme');
+    this.isDarkMode = savedTheme === 'dark';
+    document.body.classList.toggle('dark', this.isDarkMode);
   }
+
 
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
+    document.body.classList.toggle('dark', this.isDarkMode);
+    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+  }
+
+  onDarkModeChanged(value: boolean) {
+    this.isDarkMode = value;
     document.body.classList.toggle('dark', this.isDarkMode);
     localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
   }
