@@ -44,3 +44,9 @@
   width: 50% !important;
   font-size: 1.2rem;
 }
+
+/* תקטין את הטקסט של ה-placeholder לכל אינפוט */
+::ng-deep input::placeholder {
+  font-size: 1.0rem;
+  /* או כל גודל שתרצה */
+}

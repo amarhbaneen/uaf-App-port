@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { ButtonDirective } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
 import { Tooltip } from 'primeng/tooltip';
+import { NgClass } from '@angular/common'; 
+import { NgIf } from '@angular/common';
 
 
 @Component({
@@ -16,13 +18,16 @@ import { Tooltip } from 'primeng/tooltip';
     FormsModule,
     ButtonDirective,
     InputText,
-    Tooltip
+    Tooltip,
+    NgClass,
+    NgIf
   ],
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   username = '';
   password = '';
+  showPassword: boolean = false;
   isDarkMode = false;
   themeIcon = 'pi pi-moon';
 
@@ -75,4 +80,9 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/dashboard']);
     }
   }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
 }
