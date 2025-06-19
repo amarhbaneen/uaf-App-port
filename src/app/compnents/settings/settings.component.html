@@ -8,7 +8,8 @@
       <p-card header="Appearance">
         <div class="flex align-items-center justify-content-between mb-3">
           <label for="darkMode">Dark Mode</label>
-          <p-inputSwitch id="darkMode" [(ngModel)]="isDarkMode" (onChange)="toggleDarkMode()"></p-inputSwitch>
+          <p-inputSwitch id="darkMode" [(ngModel)]="isDarkMode"
+            (ngModelChange)="onDarkModeChanged($event)"></p-inputSwitch>
         </div>
 
         <p-divider></p-divider>
@@ -23,16 +24,16 @@
     <div class="col-12 md:col-6 lg:col-4">
       <p-card header="User Preferences">
         <div class="flex flex-column gap-3">
-          <div class="flex align-items-center justify-content-between">
-            <label>Language</label>
-            <span>English</span>
+          <div class="flex align-items-center justify-content-between w-full">
+            <label for="language" class="font-medium">Language</label>
+            <span id="language">English</span>
           </div>
 
           <p-divider></p-divider>
 
           <div class="flex align-items-center justify-content-between">
             <label>Notifications</label>
-            <p-inputSwitch></p-inputSwitch>
+            <p-inputSwitch [(ngModel)]="notificationsEnabled"></p-inputSwitch>
           </div>
         </div>
       </p-card>
