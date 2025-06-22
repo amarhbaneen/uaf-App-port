@@ -1,17 +1,33 @@
-<div class="login-wrapper">
-  <p-card header="Login">
-    <div class="p-fluid">
-      <div class="field">
-        <label for="username">Username</label>
-        <input id="username" type="text" pInputText [(ngModel)]="username" />
-      </div>
-
-      <div class="field">
-        <label for="password">Password</label>
-        <input id="password" type="password" pInputText [(ngModel)]="password" />
-      </div>
-
-      <button pButton label="Login" class="w-full mt-2" (click)="login()"></button>
+<form #form="ngForm" (ngSubmit)="login()" novalidate>
+  <div class="login-wrapper">
+    <div class="theme-toggle">
+      <button pButton type="button" pTooltip="Toggle Theme" [icon]="themeIcon" (click)="toggleTheme()"
+        class="p-button-text p-button-rounded"></button>
     </div>
-  </p-card>
-</div>
+
+    <p-card class="login-card">
+      <h2 class="login-title">Login</h2>
+      <div class="p-fluid login-form">
+        <!-- Username -->
+        <div class="field">
+          <label for="username">Username</label><br />
+          <input id="username" placeholder="Enter your Username" type="text" pInputText [(ngModel)]="username"
+            name="username" #usernameModel="ngModel" required class="input-lg w-full" />
+        </div>
+
+        <!-- Password -->
+        <div class="field relative">
+          <label for="password">Password</label><br />
+          <input id="password" placeholder="Enter your password" [type]="showPassword ? 'text' : 'password'" pInputText
+            [(ngModel)]="password" name="password" #passwordModel="ngModel" required class="input-lg pr-10 w-full" />
+          <i *ngIf="password" class="pi" [ngClass]="showPassword ? 'pi-eye-slash' : 'pi-eye'"
+            (click)="togglePasswordVisibility()" pTooltip="{{ showPassword ? 'Hide Password' : 'Show Password' }}"
+            style="position: absolute; right: 10px; top: 68%; transform: translateY(-50%); cursor: pointer;"></i>
+        </div>
+
+        <button pButton type="submit" icon="pi pi-sign-in" pTooltip="Continue"
+          class="p-button-primary w-full login-button" [disabled]="form.invalid"></button>
+      </div>
+    </p-card>
+  </div>
+</form>

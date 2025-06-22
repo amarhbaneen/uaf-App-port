@@ -1,14 +1,36 @@
 {
-  "name": "uaf-app-port",
-  "version": "0.0.0",
+  "name": "@amarhbaneen/uaf-components",
+  "version": "1.1.2",
+  "description": "User Authentication Factory UI Components Library with PrimeNG",
+  "keywords": [
+    "angular",
+    "primeng",
+    "ui",
+    "components",
+    "authentication",
+    "factory"
+  ],
+  "author": "UAF Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amarhbaneen/uaf-App-port"
+  },
+  "homepage": "https://github.com/amarhbaneen/uaf-App-port",
+  "bugs": {
+    "url": "https://github.com/amarhbaneen/uaf-App-port/issues"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:lib": "ng build uaf-components --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "prepublishOnly": "npm run build:lib",
+    "publish:lib": "npm publish ./dist/uaf-components --access=public"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^19.2.14",
     "@angular/common": "^19.2.14",
@@ -28,6 +50,7 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^19.2.15",
     "@angular/build": "^19.2.14",
     "@angular/cli": "^19.2.14",
     "@angular/compiler-cli": "^19.2.14",
@@ -38,6 +61,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-packagr": "^19.2.0",
     "typescript": "~5.8.2"
   }
 }
