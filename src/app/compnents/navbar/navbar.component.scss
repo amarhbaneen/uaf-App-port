@@ -6,24 +6,24 @@
   border-left: 0;
   border-right: 0;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  position: relative;
+  // position: relative;
 }
 
 :host ::ng-deep .p-menubar::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  right: 0;
-  height: 1px;
+  // content: '';
+  // position: absolute;
+  // bottom: -8px;
+  // left: 0;
+  // right: 0;
+  // height: 1px;
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-:host-context(body.dark) ::ng-deep .p-menubar {
-  border-bottom-color: var(--primary-color);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-}
+// :host-context(body.dark) ::ng-deep .p-menubar {
+//   border-bottom-color: var(--primary-color);
+//   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+// }
 
-:host-context(body.dark) ::ng-deep .p-menubar::after {
-  background-color: rgba(255, 255, 255, 0.1);
-}
+// :host-context(body.dark) ::ng-deep .p-menubar::after {
+//   background-color: rgba(255, 255, 255, 0.1);
+// }
