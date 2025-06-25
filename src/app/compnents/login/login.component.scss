@@ -45,6 +45,8 @@
   font-size: 1.2rem;
 }
 
-::ng-deep input::placeholder {
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-color-secondary);
   font-size: 1.0rem;
 }

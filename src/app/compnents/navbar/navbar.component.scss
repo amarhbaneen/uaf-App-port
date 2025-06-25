@@ -1,29 +1,15 @@
 :host ::ng-deep .p-menubar {
   background: var(--surface-100);
   color: var(--text-color);
-  border-bottom: 5px solid var(--primary-color);
+  // border-bottom: 5px solid var(--primary-color);
+  border-bottom: 6px solid;
+  border-image: linear-gradient(to right, var(--primary-color), #0d47a1) 1;
   border-top: 0;
   border-left: 0;
   border-right: 0;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  // position: relative;
 }
 
 :host ::ng-deep .p-menubar::after {
-  // content: '';
-  // position: absolute;
-  // bottom: -8px;
-  // left: 0;
-  // right: 0;
-  // height: 1px;
   background-color: rgba(0, 0, 0, 0.1);
 }
-
-// :host-context(body.dark) ::ng-deep .p-menubar {
-//   border-bottom-color: var(--primary-color);
-//   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-// }
-
-// :host-context(body.dark) ::ng-deep .p-menubar::after {
-//   background-color: rgba(255, 255, 255, 0.1);
-// }

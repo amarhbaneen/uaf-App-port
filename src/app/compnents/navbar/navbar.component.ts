@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {Menubar} from 'primeng/menubar';
-import {PrimeTemplate} from 'primeng/api';
-import {ButtonDirective} from 'primeng/button';
-import {Tooltip} from 'primeng/tooltip';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Menubar } from 'primeng/menubar';
+import { PrimeTemplate } from 'primeng/api';
+import { ButtonDirective } from 'primeng/button';
+import { Tooltip } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-navbar',
@@ -18,11 +18,11 @@ import {Tooltip} from 'primeng/tooltip';
   styleUrls: ['./navbar.component.scss']
 })
 
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
   isDarkMode = false;
   themeIcon = 'pi pi-moon';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.isDarkMode = localStorage.getItem('theme') === 'dark';
