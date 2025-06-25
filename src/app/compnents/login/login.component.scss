@@ -21,7 +21,6 @@
   max-width: 600px;
   min-height: 550px;
   padding: 2rem;
-  // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 10px 15px rgba(0, 0, 0, 0.05);
   border-radius: 1rem;
   background-color: var(--surface-card);
 }
@@ -43,6 +42,232 @@
 .login-button {
   width: 50% !important;
   font-size: 1.2rem;
+}
+
+// Connection styles
+.connection-test-success {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: rgba(var(--green-rgb, 0, 128, 0), 0.1);
+  color: var(--green-500);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.connection-test-error {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: rgba(var(--red-rgb, 255, 0, 0), 0.1);
+  color: var(--red-500);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+// Advanced options styles
+.advanced-options {
+  margin: 1rem 0;
+  padding: 0.75rem;
+  background-color: var(--surface-ground);
+  border-radius: 4px;
+  border: 1px solid var(--surface-border);
+
+  .p-field-checkbox {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    label {
+      margin-left: 0.5rem;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    .help-text {
+      margin-left: 1.5rem;
+      color: var(--text-color-secondary);
+      font-size: 0.85rem;
+    }
+  }
+}
+
+// Troubleshooting toggle styles
+.troubleshooting-toggle {
+  margin: 1rem 0 0.5rem;
+  padding: 0.5rem;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: var(--surface-hover);
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  i {
+    font-size: 0.8rem;
+  }
+}
+
+// Troubleshooting section styles
+.troubleshooting-section {
+  margin: 0.5rem 0 1rem;
+  padding: 0.75rem;
+  background-color: var(--surface-hover);
+  border-radius: 4px;
+  border-left: 4px solid var(--primary-color);
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-size: 1rem;
+  }
+
+  p {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-size: 0.9rem;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.5rem;
+
+    li {
+      margin-bottom: 0.25rem;
+      color: var(--text-color-secondary);
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.login-card {
+  min-height: 600px;
+}
+
+// Style for the dialog header
+.dialog-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--text-color);
+  }
+}
+
+
+// Style for the dropdown and dialog
+:host ::ng-deep {
+  .p-dialog {
+    background-color: var(--surface-card);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    opacity: 1 !important;
+    backdrop-filter: none !important;
+
+    .p-dialog-header,
+    .p-dialog-content,
+    .p-dialog-footer {
+      background-color: var(--surface-card);
+      color: var(--text-color);
+      opacity: 1 !important;
+    }
+  }
+
+  .p-dialog-mask {
+    background-color: var(--surface-ground);
+    opacity: 0.9 !important;
+    backdrop-filter: none !important;
+  }
+
+  .p-dialog-content {
+    background-color: var(--surface-card);
+    color: var(--text-color);
+    opacity: 1 !important;
+    backdrop-filter: none !important;
+  }
+
+  .p-dialog-header {
+    border-bottom: 1px solid var(--surface-border);
+    background-color: var(--surface-card);
+    color: var(--text-color);
+    opacity: 1 !important;
+    backdrop-filter: none !important;
+  }
+
+  .p-dialog-footer {
+    border-top: 1px solid var(--surface-border);
+    background-color: var(--surface-card);
+    color: var(--text-color);
+    opacity: 1 !important;
+    backdrop-filter: none !important;
+  }
+
+  .p-dropdown {
+    width: 100%;
+  }
+
+  .p-inputgroup {
+    .p-dropdown {
+      border-radius: 4px;
+    }
+  }
+
+  .connection-separator {
+    color: var(--text-color-secondary);
+    font-size: 0.85rem;
+    padding: 0.25rem 0;
+    pointer-events: none;
+    cursor: default;
+    text-align: center;
+    border-top: 1px solid var(--surface-border);
+    border-bottom: 1px solid var(--surface-border);
+    margin: 0.25rem 0;
+  }
+
+  .add-new-connection {
+    color: var(--text-color);
+    background-color: var(--surface-card);
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+      font-size: 0.85rem;
+    }
+
+    &:hover {
+      background-color: var(--primary-50);
+    }
+  }
+
+  .connection-value {
+    display: flex;
+    align-items: center;
+
+    .pi-plus {
+      margin-right: 0.5rem;
+      font-size: 0.85rem;
+    }
+  }
 }
 
 input::placeholder,
