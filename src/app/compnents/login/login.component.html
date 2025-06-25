@@ -1,34 +1,145 @@
-<form #form="ngForm" (ngSubmit)="login()" novalidate>
-  <div class="login-wrapper">
-    <div class="theme-toggle">
-      <button pButton type="button" pTooltip="Toggle Theme" [icon]="themeIcon" tooltipPosition="top"
-        (click)="toggleTheme()" class="p-button-text p-button-rounded">
-      </button>
+<div class="login-wrapper">
+  <div class="theme-toggle">
+    <button pButton type="button" pTooltip="Toggle Theme" [icon]="themeIcon" (click)="toggleTheme()"
+      class="p-button-text p-button-rounded"></button>
+  </div>
+  <p-card class="login-card">
+    <h2 class="login-title">Login</h2>
+    <div class="p-fluid login-form">
+      <div class="field">
+        <label for="connection">Connection</label><br />
+        <div class="p-inputgroup">
+          <p-dropdown id="connection" [options]="connections" [(ngModel)]="selectedConnection"
+            optionLabel="name" placeholder="Select a connection" styleClass="w-full"
+            (onChange)="onConnectionChange($event)" [disabled]="connections.length === 0">
+            <!-- Template for items in the dropdown list -->
+            <ng-template pTemplate="item" let-connection>
+              <div *ngIf="connection.id === 'separator'" class="connection-separator">
+                {{connection.name}}
+              </div>
+              <div *ngIf="connection.id === ADD_NEW_CONNECTION.id" class="add-new-connection">
+                <i class="pi pi-plus"></i> {{connection.name}}
+              </div>
+              <div *ngIf="connection.id !== 'separator' && connection.id !== ADD_NEW_CONNECTION.id">
+                {{connection.name}}
+              </div>
+            </ng-template>
+
+            <!-- Template for the selected value -->
+            <ng-template pTemplate="value" let-connection>
+              <div *ngIf="connection && connection.id !== 'separator'" class="connection-value">
+                <i *ngIf="connection.id === ADD_NEW_CONNECTION.id" class="pi pi-plus"></i>
+                {{connection.name}}
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="username">Username</label><br />
+        <input id="username" type="text" pInputText [(ngModel)]="username" class="input-lg" />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label><br />
+        <input id="password" type="password" pInputText [(ngModel)]="password" class="input-lg" />
+      </div>
+
+      <button pButton type="button" label="Login" class="p-button-primary w-full login-button"
+        (click)="login()"></button>
+    </div>
+  </p-card>
+
+  <!-- New Connection Dialog -->
+  <p-dialog [(visible)]="showNewConnectionDialog"
+    [style]="{width: '450px'}" [modal]="true" [draggable]="false" [resizable]="false"
+    (onHide)="onDialogHide()">
+
+    <!-- Custom header -->
+    <ng-template pTemplate="header">
+      <div class="dialog-header">
+        <h2>Add New Connection</h2>
+      </div>
+    </ng-template>
+
+
+    <div class="p-fluid">
+
+      <div class="field">
+        <label for="connectionName">Connection Name</label>
+        <input id="connectionName" type="text" pInputText [(ngModel)]="newConnection.name" required />
+      </div>
+
+      <div class="field">
+        <label for="connectionUrl">Server URL</label>
+        <input id="connectionUrl" type="text" pInputText [(ngModel)]="newConnection.url" required />
+      </div>
+
+      <div class="field">
+        <label for="connectionUsername">Username</label>
+        <input id="connectionUsername" type="text" pInputText [(ngModel)]="newConnection.username" required />
+      </div>
+
+      <div class="field">
+        <label for="connectionPassword">Password</label>
+        <input id="connectionPassword" type="password" pInputText [(ngModel)]="newConnection.password" required />
+      </div>
+
+      <!-- Advanced connection options -->
+      <div class="advanced-options">
+        <div class="p-field-checkbox">
+          <input type="checkbox" id="withCredentials" [(ngModel)]="withCredentials" (change)="toggleWithCredentials()" />
+          <label for="withCredentials">Send credentials with cross-origin requests</label>
+          <small class="help-text">Enable this if your server requires cookies or authentication headers</small>
+        </div>
+      </div>
+
+      <!-- Troubleshooting toggle -->
+      <div class="troubleshooting-toggle" (click)="toggleTroubleshooting()">
+        <span>
+          <i [class]="showTroubleshooting ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+          Having trouble connecting?
+        </span>
+      </div>
+
+      <!-- Troubleshooting section -->
+      <div class="troubleshooting-section" *ngIf="showTroubleshooting">
+        <h4>Troubleshooting Connection Issues</h4>
+        <p>If your connection test fails but works in Postman, try these solutions:</p>
+        <ul>
+          <li>Ensure the URL is correct and includes the protocol (http:// or https://)</li>
+          <li>Toggle the "Send credentials" option above if your API requires cookies</li>
+          <li>Check if your server has CORS enabled for browser requests</li>
+          <li>Verify that the username and password are correct</li>
+        </ul>
+      </div>
+
+      <div *ngIf="connectionTestSuccess" class="connection-test-success">
+        <i class="pi pi-check-circle"></i> Connection test successful
+      </div>
+
+      <div *ngIf="connectionTestError" class="connection-test-error">
+        <i class="pi pi-times-circle"></i> {{connectionTestError}}
+      </div>
     </div>
 
-    <p-card class="login-card">
-      <h2 class="login-title">Login</h2>
-      <div class="p-fluid login-form">
-        <!-- Username -->
-        <div class="field">
-          <label for="username">Username</label><br />
-          <input id="username" placeholder="Enter your Username" type="text" pInputText [(ngModel)]="username"
-            name="username" #usernameModel="ngModel" required class="input-lg w-full" />
-        </div>
+    <ng-template pTemplate="footer">
+      <button pButton type="button" label="Test Connection"
+        [disabled]="connectionTestInProgress"
+        [loading]="connectionTestInProgress"
+        (click)="testConnection()"
+        class="p-button-secondary"></button>
+      <button pButton type="button" label="Save"
+        [disabled]="!connectionTestSuccess"
+        (click)="saveConnection()"
+        class="p-button-success"></button>
+      <button pButton type="button" label="Cancel"
+        (click)="cancelNewConnection()"
+        class="p-button-outlined"></button>
+    </ng-template>
+  </p-dialog>
 
-        <!-- Password -->
-        <div class="field relative">
-          <label for="password">Password</label><br />
-          <input id="password" placeholder="Enter your password" [type]="showPassword ? 'text' : 'password'" pInputText
-            [(ngModel)]="password" name="password" #passwordModel="ngModel" required class="input-lg pr-10 w-full" />
-          <i *ngIf="password" class="pi" [ngClass]="showPassword ? 'pi-eye-slash' : 'pi-eye'"
-            (click)="togglePasswordVisibility()" pTooltip="{{ showPassword ? 'Hide Password' : 'Show Password' }}"
-            style="position: absolute; right: 10px; top: 68%; transform: translateY(-50%); cursor: pointer;"></i>
-        </div>
-
-        <button pButton type="submit" icon="pi pi-sign-in" pTooltip="Continue"
-          class="p-button-primary w-full login-button" [disabled]="form.invalid"></button>
-      </div>
-    </p-card>
-  </div>
-</form>
+  <!-- Toast for notifications -->
+  <p-toast></p-toast>
+</div>
