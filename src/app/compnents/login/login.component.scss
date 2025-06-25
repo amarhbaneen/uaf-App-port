@@ -4,6 +4,66 @@
   align-items: center;
   height: 100vh;
   position: relative;
+  overflow: hidden;
+}
+
+// Container for both cards
+.cards-container {
+  display: flex;
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  justify-content: center;
+  align-items: center; // Center items vertically
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); // Bouncy effect
+  flex-wrap: nowrap; // Prevent wrapping by default
+
+  &.show-new-connection {
+    transform: translateX(0); // No shift needed as we'll position cards side by side
+    justify-content: center; // Center the cards
+    gap: 2rem; // Add gap between cards
+  }
+}
+
+// Wrapper for each card
+.card-wrapper {
+  padding: 1rem;
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); // Bouncy effect
+}
+
+// Login card wrapper
+.login-card-wrapper {
+  z-index: 2;
+  transform: translateX(0);
+  flex: 0 0 auto; // Don't allow flex to shrink this card
+  margin: 0 auto; // Center the login card
+
+  .show-new-connection & {
+    transform: translateX(0); // No movement needed
+    opacity: 1;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// New connection card wrapper
+.new-connection-card-wrapper {
+  position: relative; // Changed from absolute to relative
+  opacity: 0;
+  z-index: 1; // No need for higher z-index as they're side by side
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); // Bouncy effect
+  visibility: hidden; // Hide initially but keep in layout
+  transform: scale(0.9) translateX(200px); // Start smaller and further off-screen to the right for more pronounced slide
+  flex: 0 0 auto; // Don't allow flex to shrink this card
+  width: 0; // Start with no width
+  overflow: hidden; // Hide overflow during transition
+
+  .show-new-connection & {
+    visibility: visible; // Show when needed
+    opacity: 1;
+    transform: scale(1) translateX(0); // Scale to normal size and slide in from right
+    width: auto; // Allow natural width
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
 }
 
 .theme-toggle {
@@ -19,23 +79,42 @@
 .login-card {
   width: 100%;
   max-width: 600px;
-  min-height: 550px;
+  height: 600px;
   padding: 2rem;
   border-radius: 1rem;
   background-color: var(--surface-card);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
-.login-form {
+.new-connection-card {
+  width: 100%;
+  max-width: 600px;
+  height: 600px;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: var(--surface-card);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form, .p-fluid {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
+  overflow-y: auto;
+  flex: 1;
 }
 
 .input-lg {
   width: 100%;
   max-width: 400px;
-  padding: 0.75rem 1rem;
+  padding: 0.6rem 0.75rem;
   font-size: 1.1rem;
 }
 
@@ -44,41 +123,79 @@
   font-size: 1.2rem;
 }
 
+// Field styles for consistent input fields
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.75rem;
+
+  label {
+    align-self: center;
+    margin-bottom: 0.3rem;
+    color: var(--text-color);
+    font-weight: 500;
+    text-align: center;
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.6rem 0.75rem;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+}
+
 // Connection styles
 .connection-test-success {
-  margin-top: 1rem;
-  padding: 0.5rem;
+  margin-top: 0.75rem;
+  padding: 0.3rem;
   background-color: rgba(var(--green-rgb, 0, 128, 0), 0.1);
   color: var(--green-500);
   border-radius: 4px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
 }
 
 .connection-test-error {
-  margin-top: 1rem;
-  padding: 0.5rem;
+  margin-top: 0.75rem;
+  padding: 0.3rem;
   background-color: rgba(var(--red-rgb, 255, 0, 0), 0.1);
   color: var(--red-500);
   border-radius: 4px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
 }
 
 // Advanced options styles
 .advanced-options {
-  margin: 1rem 0;
-  padding: 0.75rem;
+  margin: 0.75rem 0;
+  padding: 0.5rem;
   background-color: var(--surface-ground);
   border-radius: 4px;
   border: 1px solid var(--surface-border);
+  width: 100%;
+  max-width: 400px;
 
   .p-field-checkbox {
     display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 
     label {
       margin-left: 0.5rem;
@@ -87,6 +204,7 @@
     }
 
     .help-text {
+      width: 100%;
       margin-left: 1.5rem;
       color: var(--text-color-secondary);
       font-size: 0.85rem;
@@ -96,14 +214,18 @@
 
 // Troubleshooting toggle styles
 .troubleshooting-toggle {
-  margin: 1rem 0 0.5rem;
-  padding: 0.5rem;
+  margin: 0.75rem 0 0.25rem;
+  padding: 0.25rem;
   color: var(--primary-color);
   font-size: 0.9rem;
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   border-radius: 4px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
 
   &:hover {
     background-color: var(--surface-hover);
@@ -112,6 +234,7 @@
   span {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
   }
 
@@ -122,40 +245,64 @@
 
 // Troubleshooting section styles
 .troubleshooting-section {
-  margin: 0.5rem 0 1rem;
-  padding: 0.75rem;
+  margin: 0.25rem 0 0.75rem;
+  padding: 0.5rem;
   background-color: var(--surface-hover);
   border-radius: 4px;
   border-left: 4px solid var(--primary-color);
+  width: 100%;
+  max-width: 400px;
+  max-height: 180px;
+  overflow-y: auto;
 
   h4 {
     margin-top: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
     color: var(--text-color);
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   p {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
     color: var(--text-color);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   ul {
     margin: 0;
-    padding-left: 1.5rem;
+    padding-left: 1.2rem;
 
     li {
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.15rem;
       color: var(--text-color-secondary);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
   }
 }
 
-.login-card {
-  min-height: 600px;
+// Connection actions styles
+.connection-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--surface-border);
+  width: 100%;
+  max-width: 400px;
+
+  button {
+    flex: 1;
+    white-space: nowrap;
+    min-width: 0;
+    padding: 0.4rem 0.3rem;
+    text-align: center;
+    font-size: 0.9rem;
+  }
 }
+
 
 // Style for the dialog header
 .dialog-header {
@@ -163,11 +310,15 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-bottom: 0.75rem;
+  text-align: center;
 
   h2 {
     margin: 0;
     font-size: 1.25rem;
     color: var(--text-color);
+    width: 100%;
+    text-align: center;
   }
 }
 
@@ -192,7 +343,7 @@
 
   .p-dialog-mask {
     background-color: var(--surface-ground);
-    opacity: 0.9 !important;
+    opacity: 1 !important;
     backdrop-filter: none !important;
   }
 
@@ -221,11 +372,31 @@
 
   .p-dropdown {
     width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+
+    .p-dropdown-label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .p-dropdown-trigger {
+      display: flex;
+      justify-content: center;
+    }
   }
 
   .p-inputgroup {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
     .p-dropdown {
       border-radius: 4px;
+      max-width: 400px;
     }
   }
 
