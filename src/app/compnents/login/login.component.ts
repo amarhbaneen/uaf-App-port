@@ -7,7 +7,6 @@ import { ButtonDirective } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
 import { Tooltip } from 'primeng/tooltip';
 import { DropdownModule} from 'primeng/dropdown';
-import { Dialog } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ConnectionService, Connection } from '../../services/connection.service';
@@ -24,7 +23,6 @@ import { ConnectionService, Connection } from '../../services/connection.service
     ButtonDirective,
     InputText,
     Tooltip,
-    Dialog,
     ToastModule,
     DropdownModule
   ],
@@ -283,16 +281,11 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * Handle dialog hide event (triggered when dialog is closed by any means)
+   * Handle transition end event (triggered when animation completes)
    */
-  onDialogHide() {
-    // Reset the dropdown by selecting the first connection or null if no connections
-    // Only reset if the current selection is null (which happens when "Add New Connection" was selected)
-    if (this.selectedConnection === null) {
-      this.selectedConnection = this.connections.length > 0 && this.connections[0].id !== 'separator' && this.connections[0].id !== this.ADD_NEW_CONNECTION.id
-        ? this.connections[0]
-        : null;
-    }
+  onTransitionEnd(event: TransitionEvent) {
+    // Only handle the transform transition of the cards-container
+    // No rollback - we don't automatically select a connection after closing the dialog
   }
 
   /**
