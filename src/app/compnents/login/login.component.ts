@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
 
   // Advanced connection options
   withCredentials = false; // Whether to send cookies with cross-origin requests
-  showTroubleshooting = false; // Whether to show the troubleshooting section
 
   // Special connection object for "Add New Connection" option
   readonly ADD_NEW_CONNECTION: Connection = {
@@ -92,12 +91,6 @@ export class LoginComponent implements OnInit {
     this.updateConnectionServiceConfig();
   }
 
-  /**
-   * Toggle the visibility of the troubleshooting section
-   */
-  toggleTroubleshooting() {
-    this.showTroubleshooting = !this.showTroubleshooting;
-  }
 
   /**
    * Update the connection service configuration with current settings
@@ -155,21 +148,64 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    // If a connection is selected, use its URL for the login
-    if (this.selectedConnection) {
-      // In a real application, you would use the connection URL and token
-      // For now, we'll just navigate to the dashboard if username and password are provided
-      if (this.username && this.password) {
-        this.router.navigate(['/dashboard']);
-      }
-    } else if (this.username && this.password) {
-      // Fallback to the original behavior if no connection is selected
-      this.router.navigate(['/dashboard']);
-    } else {
+    // Check if we have the required credentials
+    if (!this.username || !this.password) {
       this.messageService.add({
         severity: 'error',
         summary: 'Login Failed',
-        detail: 'Please select a connection or enter username and password'
+        detail: 'Please enter username and password'
+      });
+      return;
+    }
+
+    // If a connection is selected, use its URL for the login
+    if (this.selectedConnection && this.selectedConnection.id !== this.ADD_NEW_CONNECTION.id && this.selectedConnection.id !== 'separator') {
+      // Create a temporary connection object with the current credentials
+      const loginConnection: Connection = {
+        ...this.selectedConnection,
+        username: this.username,
+        password: this.password
+      };
+
+      // Show loading state
+      this.connectionTestInProgress = true;
+
+      // Test the connection before proceeding with login
+      this.connectionService.testConnection(loginConnection)
+        .subscribe({
+          next: (connection) => {
+            this.connectionTestInProgress = false;
+
+            // Connection test successful, proceed with login
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Connection Successful',
+              detail: 'Successfully connected to the server'
+            });
+
+            // Navigate to dashboard
+            this.router.navigate(['/dashboard']);
+          },
+          error: (error) => {
+            this.connectionTestInProgress = false;
+
+            // Show error message
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Connection Failed',
+              detail: error.message || 'Failed to connect to the server'
+            });
+
+            // Log the full error for debugging
+            console.error('Login connection test error:', error);
+          }
+        });
+    } else {
+      // No valid connection selected
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Login Failed',
+        detail: 'Please select a valid connection'
       });
     }
   }
@@ -186,7 +222,6 @@ export class LoginComponent implements OnInit {
     };
     this.connectionTestSuccess = false;
     this.connectionTestError = '';
-    this.showTroubleshooting = false; // Hide troubleshooting section by default
     this.showNewConnectionDialog = true;
   }
 
@@ -208,11 +243,6 @@ export class LoginComponent implements OnInit {
     this.connectionTestSuccess = false;
     this.connectionTestError = '';
 
-    // Show the troubleshooting section if it's not already visible
-    if (!this.showTroubleshooting) {
-      this.showTroubleshooting = true;
-    }
-
     this.connectionService.testConnection(this.newConnection)
       .subscribe({
         next: (connection) => {
@@ -224,9 +254,6 @@ export class LoginComponent implements OnInit {
             summary: 'Connection Test Successful',
             detail: 'Successfully authenticated with the server'
           });
-
-          // Hide the troubleshooting section on success
-          this.showTroubleshooting = false;
         },
         error: (error) => {
           this.connectionTestInProgress = false;
