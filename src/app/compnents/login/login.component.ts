@@ -154,6 +154,20 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
   }
 
+  /**
+   * Handles the login process
+   *
+   * This method validates the user credentials, tests the connection to the server,
+   * and navigates to the dashboard if authentication is successful.
+   *
+   * The login process follows these steps:
+   * 1. Validates that username and password are provided
+   * 2. Checks that a valid connection is selected
+   * 3. Creates a temporary connection object with the current credentials
+   * 4. Tests the connection to verify server accessibility and credential validity
+   * 5. Navigates to the dashboard if the connection test is successful
+   * 6. Displays appropriate error messages if any step fails
+   */
   login() {
     // If a connection is selected, use its URL for the login
     if (this.selectedConnection) {

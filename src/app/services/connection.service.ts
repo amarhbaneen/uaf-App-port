@@ -79,6 +79,14 @@ export class ConnectionService {
 
   /**
    * Test connection by attempting to authenticate and get JWT token
+   *
+   * This method sends a POST request to the specified URL with the provided credentials.
+   * It expects a JSON response with a status code of 200 for successful authentication.
+   * If successful, it extracts a JWT token from the response and returns the connection object.
+   *
+   * @param connection - The connection object containing URL, username, and password
+   * @returns An Observable that emits the connection object with token if successful
+   * @throws Error if authentication fails or if the server is unreachable
    */
   testConnection(connection: Connection): Observable<Connection> {
     // Validate required fields

@@ -25,13 +25,31 @@ compnents/
 - `login.component.scss`: Styles
 
 **Features**:
+- Connection management (add, test, and select connections)
 - Username and password input fields
 - Form validation
-- Authentication handling
+- Connection testing before authentication
+- Loading state during connection testing
+- Error handling for failed connections
 - Navigation to dashboard upon successful login
+- Theme toggle (light/dark mode)
+
+**Connection Management**:
+The login component includes a comprehensive connection management system that allows users to:
+- Select from previously saved connections
+- Add new connections with a name, URL, username, and password
+- Test connections before saving them
+- Configure advanced connection options (e.g., withCredentials for CORS)
+
+**Authentication Flow**:
+1. User selects a connection from the dropdown
+2. User enters username and password
+3. On login button click, the component tests the connection with the provided credentials
+4. If the connection test is successful, the user is navigated to the dashboard
+5. If the connection test fails, an error message is displayed
 
 **Usage**:
-The login component is the default route of the application. Users must authenticate through this component before accessing other parts of the application.
+The login component is the default route of the application. Users must authenticate through this component before accessing other parts of the application. The connection management system allows users to connect to different backend servers.
 
 ## Navbar Component
 
