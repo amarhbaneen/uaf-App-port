@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -112,45 +112,92 @@ export class ConnectionService {
     }
 
     // Send POST request to the connection URL with headers
-    return this.http.post<any>(url, body, {
+    return this.http.post(url, body, {
       headers,
-      withCredentials: this.config.withCredentials  // Use the configured setting
+      withCredentials: this.config.withCredentials,  // Use the configured setting
+      observe: 'response',  // Get the full HTTP response to check status code
+      responseType: 'json'  // Use json as the responseType to match expected type
     }).pipe(
-      map(response => {
-        // If we get here, the request was successful (status 200)
-        console.log('Connection test successful, response:', response);
+      map((response: HttpResponse<any>) => {
+        // Explicitly check for 200 status code
+        if (response.status !== 200) {
+          throw new Error(`Expected status code 200, but got ${response.status}`);
+        }
 
-        // Extract JWT token from response if available
-        // Check different common token property names
-        if (response) {
-          if (response.token) {
-            connection.token = response.token;
-          } else if (response.access_token) {
-            connection.token = response.access_token;
-          } else if (response.jwt) {
-            connection.token = response.jwt;
-          } else if (response.id_token) {
-            connection.token = response.id_token;
-          } else if (typeof response === 'string' && response.length > 10) {
+        console.log('Connection test successful with status 200, response:', response);
+
+        // With responseType: 'json', the response.body is already parsed
+        const responseBody = response.body;
+        console.log('Response body:', responseBody);
+
+        // Extract JWT token from parsed response if available
+        if (responseBody) {
+          if (typeof responseBody === 'object') {
+            // Check different common token property names in JSON response
+            if (responseBody.token) {
+              connection.token = responseBody.token;
+            } else if (responseBody.access_token) {
+              connection.token = responseBody.access_token;
+            } else if (responseBody.jwt) {
+              connection.token = responseBody.jwt;
+            } else if (responseBody.id_token) {
+              connection.token = responseBody.id_token;
+            } else {
+              // If no token found in JSON, create a placeholder
+              connection.token = 'jwt-token-' + Math.random().toString(36).substring(2);
+            }
+          } else if (typeof responseBody === 'string' && responseBody.length > 10) {
             // Some APIs return the token directly as a string
-            connection.token = response;
+            connection.token = responseBody;
           } else {
-            // If no token in response, create a placeholder
-            // This allows the connection to be saved even if no token is returned
+            // For other types or short strings, create a placeholder
             connection.token = 'jwt-token-' + Math.random().toString(36).substring(2);
           }
         } else {
-          // If response is empty but status is 200, create a placeholder
+          // If response body is empty but status is 200, create a placeholder
           connection.token = 'jwt-token-' + Math.random().toString(36).substring(2);
         }
 
-        return { ...connection };
+        return { ...connection } as Connection;
       }),
       catchError(error => {
         // Handle HTTP errors
         let errorMessage = 'Connection test failed';
 
-        if (error.status) {
+        // Check if this is an error thrown by our status code check
+        if (error.message && error.message.includes('Expected status code 200')) {
+          return throwError(() => error);
+        }
+
+        // Check for parsing errors
+        if (error.name === 'HttpErrorResponse' && error.message && error.message.includes('Http failure during parsing')) {
+          // This is a parsing error, but the request might have been successful
+          // Check if we have a status code in the error
+          if (error.status === 200) {
+            console.log('Received a 200 status code but encountered a parsing error. Treating as success.');
+
+            // Try to get the raw response text if available
+            let rawResponse = '';
+            if (error.error instanceof Error) {
+              rawResponse = error.error.message;
+            } else if (typeof error.error === 'string') {
+              rawResponse = error.error;
+            }
+
+            console.log('Raw response:', rawResponse);
+
+            // Create a placeholder token since we couldn't parse the response
+            connection.token = 'jwt-token-' + Math.random().toString(36).substring(2);
+
+            // Return the connection as if it was successful
+            return new Observable<Connection>(observer => {
+              observer.next({ ...connection } as Connection);
+              observer.complete();
+            });
+          } else {
+            errorMessage = 'Response format error: The server returned a response that could not be processed';
+          }
+        } else if (error.status) {
           errorMessage += `: HTTP ${error.status}`;
 
           if (error.status === 401 || error.status === 403) {
@@ -164,6 +211,9 @@ export class ConnectionService {
             } else {
               errorMessage = 'Cannot connect to server. Please check the URL and try again';
             }
+          } else {
+            // For any other non-200 status code
+            errorMessage = `Connection test failed: Expected status code 200, but got ${error.status}`;
           }
         }
 

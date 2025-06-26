@@ -51,6 +51,8 @@
           </div>
 
           <button pButton type="button" label="Login" class="p-button-primary w-full login-button"
+            [loading]="connectionTestInProgress"
+            [disabled]="connectionTestInProgress"
             (click)="login()"></button>
         </div>
       </p-card>
@@ -93,25 +95,6 @@
             </div>
           </div>
 
-          <!-- Troubleshooting toggle -->
-          <div class="troubleshooting-toggle" (click)="toggleTroubleshooting()">
-            <span>
-              <i [class]="showTroubleshooting ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
-              Having trouble connecting?
-            </span>
-          </div>
-
-          <!-- Troubleshooting section -->
-          <div class="troubleshooting-section" *ngIf="showTroubleshooting">
-            <h4>Troubleshooting Connection Issues</h4>
-            <p>If your connection test fails but works in Postman, try these solutions:</p>
-            <ul>
-              <li>Ensure the URL is correct and includes the protocol (http:// or https://)</li>
-              <li>Toggle the "Send credentials" option above if your API requires cookies</li>
-              <li>Check if your server has CORS enabled for browser requests</li>
-              <li>Verify that the username and password are correct</li>
-            </ul>
-          </div>
 
           <div *ngIf="connectionTestSuccess" class="connection-test-success">
             <i class="pi pi-check-circle"></i> Connection test successful
