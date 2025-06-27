@@ -1,11 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Card } from 'primeng/card';
 import { FormsModule } from '@angular/forms';
 import { ButtonDirective } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
 import { Tooltip } from 'primeng/tooltip';
-import { NgClass } from '@angular/common'; 
+import { NgClass } from '@angular/common';
 import { NgIf } from '@angular/common';
 
 
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
     this.watchBodyClassChanges();
   }
 
-  // Watch for changes to the body's class list (for when theme is toggled from navbar)
+  // Watch for changes to the body's class list (for when the theme is toggled from navbar)
   private watchBodyClassChanges() {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
