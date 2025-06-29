@@ -2,66 +2,60 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   position: relative;
-  overflow: hidden;
+  z-index: 99;
 }
 
-// Container for both cards
 .cards-container {
   display: flex;
   position: relative;
   width: 100%;
   max-width: 1200px;
-  justify-content: center;
-  align-items: center; // Center items vertically
-  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); // Bouncy effect
-  flex-wrap: nowrap; // Prevent wrapping by default
+  justify-content: flex-end;
+  align-items: center;
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  flex-wrap: nowrap;
 
   &.show-new-connection {
-    transform: translateX(0); // No shift needed as we'll position cards side by side
-    justify-content: center; // Center the cards
-    gap: 2rem; // Add gap between cards
+    transform: translateX(0);
+    justify-content: center;
+    gap: 2rem;
   }
 }
 
-// Wrapper for each card
 .card-wrapper {
   padding: 1rem;
-  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); // Bouncy effect
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-// Login card wrapper
 .login-card-wrapper {
   z-index: 2;
   transform: translateX(0);
-  flex: 0 0 auto; // Don't allow flex to shrink this card
-  margin: 0 auto; // Center the login card
+  flex: 0 0 auto;
+  margin: 0 auto;
 
   .show-new-connection & {
-    transform: translateX(0); // No movement needed
+    transform: translateX(0);
     opacity: 1;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
   }
 }
 
-// New connection card wrapper
 .new-connection-card-wrapper {
-  position: relative; // Changed from absolute to relative
+  position: relative;
   opacity: 0;
-  z-index: 1; // No need for higher z-index as they're side by side
-  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); // Bouncy effect
-  visibility: hidden; // Hide initially but keep in layout
-  transform: scale(0.9) translateX(200px); // Start smaller and further off-screen to the right for more pronounced slide
-  flex: 0 0 auto; // Don't allow flex to shrink this card
-  width: 0; // Start with no width
-  overflow: hidden; // Hide overflow during transition
+  z-index: 1;
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  visibility: hidden;
+  transform: scale(0.9) translateX(200px);
+  flex: 0 0 auto;
+  overflow: hidden;
 
   .show-new-connection & {
-    visibility: visible; // Show when needed
+    visibility: visible;
     opacity: 1;
-    transform: scale(1) translateX(0); // Scale to normal size and slide in from right
-    width: auto; // Allow natural width
+    transform: scale(1) translateX(0);
+    width: auto;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
   }
 }
@@ -70,23 +64,11 @@
   position: absolute;
   top: 20px;
   right: 20px;
+  z-index: 1;
 }
 
 .login-title {
   text-align: center;
-}
-
-.login-card {
-  width: 100%;
-  max-width: 600px;
-  height: 600px;
-  padding: 2rem;
-  border-radius: 1rem;
-  background-color: var(--surface-card);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
 }
 
 .new-connection-card {
@@ -102,7 +84,8 @@
   flex-direction: column;
 }
 
-.login-form, .p-fluid {
+.login-form,
+.p-fluid {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -119,37 +102,35 @@
 }
 
 .login-button {
-  width: 50% !important;
-  font-size: 1.2rem;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px !important;
 }
 
-// Field styles for consistent input fields
 .field {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
-  margin-bottom: 0.5rem;
-
-  label {
-    align-self: center;
-    margin-bottom: 0.2rem;
-    color: var(--text-color);
-    font-weight: 500;
-    text-align: center;
-    width: 100%;
-  }
+  margin-bottom: 0.3rem;
 
   input {
     width: 100%;
     max-width: 400px;
     padding: 0.6rem 0.75rem;
     font-size: 1.1rem;
-    text-align: center;
+    text-align: left;
   }
 }
 
-// Connection styles
+.input-lg {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.6rem 0.75rem;
+  font-size: 1.1rem;
+  text-align: left;
+}
+
 .connection-test-success {
   margin-top: 0.75rem;
   padding: 0.3rem;
@@ -180,7 +161,6 @@
   max-width: 400px;
 }
 
-// Advanced options styles
 .advanced-options {
   margin: 0.75rem 0;
   padding: 0.5rem;
@@ -212,8 +192,6 @@
   }
 }
 
-
-// Connection actions styles
 .connection-actions {
   display: flex;
   justify-content: space-between;
@@ -234,148 +212,4 @@
     text-align: center;
     font-size: 0.9rem;
   }
-}
-
-
-// Style for the dialog header
-.dialog-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 0.75rem;
-  text-align: center;
-
-  h2 {
-    margin: 0;
-    font-size: 1.25rem;
-    color: var(--text-color);
-    width: 100%;
-    text-align: center;
-  }
-}
-
-
-// Style for the dropdown and dialog
-:host ::ng-deep {
-  .p-dialog {
-    background-color: var(--surface-card);
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    opacity: 1 !important;
-    backdrop-filter: none !important;
-
-    .p-dialog-header,
-    .p-dialog-content,
-    .p-dialog-footer {
-      background-color: var(--surface-card);
-      color: var(--text-color);
-      opacity: 1 !important;
-    }
-  }
-
-  .p-dialog-mask {
-    background-color: var(--surface-ground);
-    opacity: 1 !important;
-    backdrop-filter: none !important;
-  }
-
-  .p-dialog-content {
-    background-color: var(--surface-card);
-    color: var(--text-color);
-    opacity: 1 !important;
-    backdrop-filter: none !important;
-  }
-
-  .p-dialog-header {
-    border-bottom: 1px solid var(--surface-border);
-    background-color: var(--surface-card);
-    color: var(--text-color);
-    opacity: 1 !important;
-    backdrop-filter: none !important;
-  }
-
-  .p-dialog-footer {
-    border-top: 1px solid var(--surface-border);
-    background-color: var(--surface-card);
-    color: var(--text-color);
-    opacity: 1 !important;
-    backdrop-filter: none !important;
-  }
-
-  .p-dropdown {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: center;
-
-    .p-dropdown-label {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-
-    .p-dropdown-trigger {
-      display: flex;
-      justify-content: center;
-    }
-  }
-
-  .p-inputgroup {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-
-    .p-dropdown {
-      border-radius: 4px;
-      max-width: 400px;
-    }
-  }
-
-  .connection-separator {
-    color: var(--text-color-secondary);
-    font-size: 0.85rem;
-    padding: 0.25rem 0;
-    pointer-events: none;
-    cursor: default;
-    text-align: center;
-    border-top: 1px solid var(--surface-border);
-    border-bottom: 1px solid var(--surface-border);
-    margin: 0.25rem 0;
-  }
-
-  .add-new-connection {
-    color: var(--text-color);
-    background-color: var(--surface-card);
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    i {
-      font-size: 0.85rem;
-    }
-
-    &:hover {
-      background-color: var(--primary-50);
-    }
-  }
-
-  .connection-value {
-    display: flex;
-    align-items: center;
-
-    .pi-plus {
-      margin-right: 0.5rem;
-      font-size: 0.85rem;
-    }
-  }
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: var(--text-color-secondary);
-  font-size: 1.0rem;
 }
