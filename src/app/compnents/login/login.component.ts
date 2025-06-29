@@ -26,12 +26,12 @@ import { ConnectionService, Connection } from '../../services/connection.service
     ToastModule,
     DropdownModule
   ],
-  providers: [MessageService],
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   username = '';
   password = '';
+  showPassword: boolean = false;
   isDarkMode = false;
   themeIcon = 'pi pi-moon';
 
