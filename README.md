@@ -128,11 +128,24 @@ uaf-App-port/
 
 ## Features
 
-- **Authentication System**: Secure login functionality
+- **Connection Management System**: 
+  - Save and manage multiple server connections
+  - Test connections before authentication
+  - Configure connection options (CORS settings)
+  - Secure storage of connection details (passwords not stored)
+
+- **Authentication System**: 
+  - Secure login functionality with connection testing
+  - JWT token extraction from server responses
+  - Automatic handling of various token formats
+  - Comprehensive error handling for authentication failures
+
 - **Dashboard Interface**: Central hub for application features
-- **Custom PrimeNG Theme**: Consistent styling across all components
-- **Dark Mode Support**: Toggle between light and dark themes
-- **Responsive Design**: Works on desktop and mobile devices
+
+- **Custom PrimeNG Theme**: 
+  - Consistent styling across all components
+  - Dark Mode Support with toggle between light and dark themes
+  - Responsive Design that works on desktop and mobile devices
 
 ## Installation
 
@@ -161,10 +174,33 @@ uaf-App-port/
 
 ## Usage
 
-1. **Login**: Enter your credentials on the login page
-2. **Dashboard**: After successful login, you'll be redirected to the dashboard
-3. **Theme Toggle**: Use the theme toggle button in the navbar to switch between light and dark modes
-4. **Logout**: Click the logout button in the navbar to return to the login page
+### Connection Management
+
+1. **Adding a Connection**:
+   - On the login page, click the dropdown and select "Add New Connection"
+   - Enter a name for the connection, the server URL, and your credentials
+   - Click "Test Connection" to verify the connection works
+   - If the test is successful, click "Save" to store the connection
+
+2. **Using Saved Connections**:
+   - Select a saved connection from the dropdown on the login page
+   - Enter your password (username will be pre-filled if available)
+   - Click "Login" to authenticate with the selected connection
+
+### Authentication
+
+1. **Login Process**:
+   - Select a connection from the dropdown
+   - Enter your username and password
+   - Click "Login" to test the connection and authenticate
+   - If successful, you'll be redirected to the dashboard
+   - If unsuccessful, an error message will be displayed
+
+### Dashboard and Navigation
+
+1. **Dashboard**: After successful login, you'll be redirected to the dashboard
+2. **Theme Toggle**: Use the theme toggle button in the navbar or login page to switch between light and dark modes
+3. **Logout**: Click the logout button in the navbar to return to the login page
 
 ## Additional Resources
 

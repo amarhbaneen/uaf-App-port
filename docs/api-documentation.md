@@ -203,6 +203,82 @@ The API uses versioning to ensure backward compatibility. The current version is
 
 Example: `/api/v1/users/me`
 
+## Connection Service
+
+The ConnectionService is a client-side service that manages connections to backend servers. It provides functionality for testing connections, saving connection details, and retrieving saved connections.
+
+### Service Methods
+
+#### Test Connection
+
+**Method**: `testConnection(connection: Connection): Observable<Connection>`
+
+**Description**: Tests a connection by sending a POST request to the specified URL with the provided credentials. Expects a JSON response with a status code of 200 for successful authentication.
+
+**Parameters**:
+```typescript
+{
+  name: string;       // Display name for the connection
+  url: string;        // Server URL
+  username: string;   // Username for authentication
+  password: string;   // Password for authentication
+}
+```
+
+**Response**:
+```typescript
+{
+  id?: string;        // Unique identifier (generated if not provided)
+  name: string;       // Display name for the connection
+  url: string;        // Server URL
+  username?: string;  // Username for authentication
+  token?: string;     // JWT token extracted from the response
+}
+```
+
+**Error Handling**:
+- Username and password are required
+- HTTP errors (401, 403, 404, etc.)
+- CORS errors
+- Network connectivity issues
+- JSON parsing errors
+
+#### Get Connections
+
+**Method**: `getConnections(): Connection[]`
+
+**Description**: Retrieves all saved connections from local storage.
+
+**Response**: Array of Connection objects (without passwords for security).
+
+#### Save Connection
+
+**Method**: `saveConnection(connection: Connection): void`
+
+**Description**: Saves a connection to local storage. If a connection with the same ID already exists, it will be updated.
+
+**Parameters**: Connection object (password is removed before saving for security).
+
+#### Delete Connection
+
+**Method**: `deleteConnection(connectionId: string): void`
+
+**Description**: Deletes a connection from local storage.
+
+**Parameters**: ID of the connection to delete.
+
+### Configuration
+
+The ConnectionService can be configured with the following options:
+
+```typescript
+{
+  withCredentials?: boolean;  // Whether to send cookies with cross-origin requests
+  timeout?: number;           // Request timeout in milliseconds
+  retries?: number;           // Number of retry attempts
+}
+```
+
 ## Future Endpoints
 
 As the application evolves, additional endpoints will be added for:
