@@ -26,19 +26,15 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.isDarkMode = localStorage.getItem('theme') === 'dark';
-    this.updateThemeIcon();
+    this.themeIcon = this.isDarkMode ? 'pi pi-sun' : 'pi pi-moon';
 
     // Toggle the class on <body> or use the service if you have one
     document.body.classList.toggle('dark', this.isDarkMode);
   }
 
-  private updateThemeIcon() {
-    this.themeIcon = this.isDarkMode ? 'pi pi-sun' : 'pi pi-moon';
-  }
-
   toggleTheme() {
     this.isDarkMode = !this.isDarkMode;
-    this.updateThemeIcon();
+    this.themeIcon = this.isDarkMode ? 'pi pi-sun' : 'pi pi-moon';
 
     // Toggle the class on <body> or use the service if you have one
     document.body.classList.toggle('dark', this.isDarkMode);
