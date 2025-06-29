@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule, NgClass, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Card } from 'primeng/card';
 import { ButtonDirective } from 'primeng/button';
@@ -26,12 +26,12 @@ import { ConnectionService, Connection } from '../../services/connection.service
     ToastModule,
     DropdownModule
   ],
-  providers: [MessageService],
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   username = '';
   password = '';
+  showPassword: boolean = false;
   isDarkMode = false;
   themeIcon = 'pi pi-moon';
 
