@@ -17,7 +17,7 @@ export interface Connection {
   providedIn: 'root'
 })
 export class ConnectionService {
-  private readonly CONNECTIONS_STORAGE_KEY = 'app_connections';
+  private readonly CONNECTIONS_STORAGE_KEY = '';
 
   // Configuration options
   private config = {

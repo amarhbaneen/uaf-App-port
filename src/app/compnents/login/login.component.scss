@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   position: relative;
   overflow: hidden;
 }
@@ -77,16 +76,8 @@
 }
 
 .login-card {
-  width: 100%;
-  max-width: 600px;
-  height: 600px;
-  padding: 2rem;
-  border-radius: 1rem;
-  background-color: var(--surface-card);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
+  // max-width: 600px;
+  // height: 700px; 
 }
 
 .new-connection-card {
@@ -102,7 +93,8 @@
   flex-direction: column;
 }
 
-.login-form, .p-fluid {
+.login-form,
+.p-fluid {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -119,35 +111,35 @@
 }
 
 .login-button {
-  width: 50% !important;
-  font-size: 1.2rem;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px !important;
 }
 
-// Field styles for consistent input fields
 .field {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
-  margin-bottom: 0.5rem;
-
-  label {
-    align-self: center;
-    margin-bottom: 0.2rem;
-    color: var(--text-color);
-    font-weight: 500;
-    text-align: center;
-    width: 100%;
-  }
+  margin-bottom: 0.3rem;
 
   input {
     width: 100%;
     max-width: 400px;
     padding: 0.6rem 0.75rem;
     font-size: 1.1rem;
-    text-align: center;
+    text-align: left;
   }
 }
+
+.input-lg {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.6rem 0.75rem;
+  font-size: 1.1rem;
+  text-align: left; // היה center
+}
+
 
 // Connection styles
 .connection-test-success {
@@ -256,126 +248,127 @@
 }
 
 
-// Style for the dropdown and dialog
-:host ::ng-deep {
-  .p-dialog {
-    background-color: var(--surface-card);
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    opacity: 1 !important;
-    backdrop-filter: none !important;
+// // Style for the dropdown and dialog
+// :host ::ng-deep {
+//   .p-dialog {
+//     background-color: var(--surface-card);
+//     border-radius: 12px;
+//     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+//     opacity: 1 !important;
+//     backdrop-filter: none !important;
 
-    .p-dialog-header,
-    .p-dialog-content,
-    .p-dialog-footer {
-      background-color: var(--surface-card);
-      color: var(--text-color);
-      opacity: 1 !important;
-    }
-  }
+//     .p-dialog-header,
+//     .p-dialog-content,
+//     .p-dialog-footer {
+//       background-color: var(--surface-card);
+//       color: var(--text-color);
+//       opacity: 1 !important;
+//     }
+//   }
 
-  .p-dialog-mask {
-    background-color: var(--surface-ground);
-    opacity: 1 !important;
-    backdrop-filter: none !important;
-  }
+//   .p-dialog-mask {
+//     background-color: var(--surface-ground);
+//     opacity: 1 !important;
+//     backdrop-filter: none !important;
+//   }
 
-  .p-dialog-content {
-    background-color: var(--surface-card);
-    color: var(--text-color);
-    opacity: 1 !important;
-    backdrop-filter: none !important;
-  }
+//   .p-dialog-content {
+//     background-color: var(--surface-card);
+//     color: var(--text-color);
+//     opacity: 1 !important;
+//     backdrop-filter: none !important;
+//   }
 
-  .p-dialog-header {
-    border-bottom: 1px solid var(--surface-border);
-    background-color: var(--surface-card);
-    color: var(--text-color);
-    opacity: 1 !important;
-    backdrop-filter: none !important;
-  }
+//   .p-dialog-header {
+//     border-bottom: 1px solid var(--surface-border);
+//     background-color: var(--surface-card);
+//     color: var(--text-color);
+//     opacity: 1 !important;
+//     backdrop-filter: none !important;
+//   }
 
-  .p-dialog-footer {
-    border-top: 1px solid var(--surface-border);
-    background-color: var(--surface-card);
-    color: var(--text-color);
-    opacity: 1 !important;
-    backdrop-filter: none !important;
-  }
+//   .p-dialog-footer {
+//     border-top: 1px solid var(--surface-border);
+//     background-color: var(--surface-card);
+//     color: var(--text-color);
+//     opacity: 1 !important;
+//     backdrop-filter: none !important;
+//   }
 
-  .p-dropdown {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: center;
+//   .p-dropdown {
+//     width: 100%;
+//     max-width: 400px;
+//     margin: 0 auto;
+//     text-align: center;
 
-    .p-dropdown-label {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+//     .p-dropdown-label {
+//       display: flex;
+//       justify-content: center;
+//       align-items: center;
+//       text-align: center;
+//     }
 
-    .p-dropdown-trigger {
-      display: flex;
-      justify-content: center;
-    }
-  }
+//     .p-dropdown-trigger {
+//       display: flex;
+//       justify-content: center;
+//     }
+//   }
 
-  .p-inputgroup {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+//   .p-inputgroup {
+//     display: flex;
+//     justify-content: center;
+//     width: 100%;
 
-    .p-dropdown {
-      border-radius: 4px;
-      max-width: 400px;
-    }
-  }
+//     .p-dropdown {
+//       border-radius: 4px;
+//       max-width: 400px;
+//     }
+//   }
 
-  .connection-separator {
-    color: var(--text-color-secondary);
-    font-size: 0.85rem;
-    padding: 0.25rem 0;
-    pointer-events: none;
-    cursor: default;
-    text-align: center;
-    border-top: 1px solid var(--surface-border);
-    border-bottom: 1px solid var(--surface-border);
-    margin: 0.25rem 0;
-  }
+//   .connection-separator {
+//     color: var(--text-color-secondary);
+//     font-size: 0.85rem;
+//     padding: 0.25rem 0;
+//     pointer-events: none;
+//     cursor: default;
+//     text-align: center;
+//     border-top: 1px solid var(--surface-border);
+//     border-bottom: 1px solid var(--surface-border);
+//     margin: 0.25rem 0;
+//   }
 
-  .add-new-connection {
-    color: var(--text-color);
-    background-color: var(--surface-card);
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+//   .add-new-connection {
+//     color: var(--text-color);
+//     background-color: var(--surface-card);
+//     padding: 0.5rem 1rem;
+//     font-size: 1rem;
+//     display: flex;
+//     align-items: center;
+//     gap: 0.5rem;
 
-    i {
-      font-size: 0.85rem;
-    }
+//     i {
+//       font-size: 0.85rem;
+//     }
 
-    &:hover {
-      background-color: var(--primary-50);
-    }
-  }
+//     &:hover {
+//       background-color: var(--primary-50);
+//     }
+//   }
 
-  .connection-value {
-    display: flex;
-    align-items: center;
+//   .connection-value {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
 
-    .pi-plus {
-      margin-right: 0.5rem;
-      font-size: 0.85rem;
-    }
-  }
-}
+//     .pi-plus {
+//       margin-right: 0.5rem;
+//       font-size: 0.85rem;
+//     }
+//   }
+// }
 
-input::placeholder,
-textarea::placeholder {
-  color: var(--text-color-secondary);
-  font-size: 1.0rem;
-}
+// input::placeholder,
+// textarea::placeholder {
+//   color: var(--text-color-secondary);
+//   font-size: 1.0rem;
+// }

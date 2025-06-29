@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Card } from 'primeng/card';
@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ButtonDirective } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
 import { Tooltip } from 'primeng/tooltip';
-import { DropdownModule} from 'primeng/dropdown';
+import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ConnectionService, Connection } from '../../services/connection.service';
@@ -334,26 +334,26 @@ export class LoginComponent implements OnInit {
    */
   onConnectionChange(event: any) {
     if (this.selectedConnection) {
-      // Check if the "Add New Connection" option was selected
       if (this.selectedConnection.id === this.ADD_NEW_CONNECTION.id) {
-        // Reset the selection
-        this.selectedConnection = null;
-        // Open the dialog
+        // פתח את הדיאלוג
         this.openNewConnectionDialog();
+
+        // אפס את הבחירה אחרי "tick" כדי שה-dropdown יתעדכן
+        setTimeout(() => {
+          this.selectedConnection = null;
+        }, 0);
+
         return;
       }
 
-      // Check if separator was selected (should not happen, but just in case)
       if (this.selectedConnection.id === 'separator') {
         this.selectedConnection = null;
         return;
       }
 
-      // Pre-fill username if available
       if (this.selectedConnection.username) {
         this.username = this.selectedConnection.username;
       }
-      // Clear password for security
       this.password = '';
     }
   }
