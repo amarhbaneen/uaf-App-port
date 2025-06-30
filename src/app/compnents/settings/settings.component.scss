@@ -1,0 +1,71 @@
+.settings-container {
+  padding: 2rem;
+
+  h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+  }
+
+  .cards-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: stretch; // 💡 חשוב לגובה שווה
+  }
+
+  .card-column {
+    flex: 1 1 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 768px) {
+      flex: 1 1 calc(50% - 1.5rem);
+    }
+
+    @media (min-width: 1024px) {
+      flex: 1 1 calc(33.333% - 1.5rem);
+    }
+
+    p-card {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+
+    &.space-between {
+      justify-content: space-between;
+    }
+
+    &.justify-end {
+      justify-content: flex-end;
+    }
+  }
+
+  .text-primary {
+    color: var(--primary-color, #c0392b);
+    font-weight: 500;
+  }
+
+  button.p-button-outlined {
+    min-width: 140px;
+  }
+}
