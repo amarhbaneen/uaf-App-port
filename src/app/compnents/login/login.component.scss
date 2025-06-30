@@ -71,6 +71,43 @@
   text-align: center;
 }
 
+::ng-deep .p-dropdown {
+  height: 44px; 
+  line-height: 1.2;
+  padding: 0 0.75rem;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+::ng-deep .p-inputgroup {
+  width: 100%;
+  // padding: 0.6rem 0.75rem;
+  font-size: 1.1rem;
+  max-width: 400px;
+}
+
+::ng-deep .p-card-content {
+  width: 90%;
+  max-width: 500px;
+  min-width: 300px;
+  height: auto;
+  max-height: 90vh;
+  min-height: 400px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.input-lg {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.6rem 0.75rem;
+  font-size: 1.1rem;
+}
+
 .new-connection-card {
   width: 100%;
   max-width: 600px;
@@ -92,13 +129,6 @@
   gap: 0.5rem;
   overflow-y: auto;
   flex: 1;
-}
-
-.input-lg {
-  width: 100%;
-  max-width: 400px;
-  padding: 0.6rem 0.75rem;
-  font-size: 1.1rem;
 }
 
 .login-button {

@@ -1,8 +1,5 @@
 <div class="login-wrapper">
   <div class="theme-toggle">
-    <button pButton type="button" pTooltip="Toggle Theme" tooltipPosition="left" [icon]="themeIcon"
-      (click)="toggleTheme()" class="p-button-text p-button-rounded"></button>
-
     <button pButton type="button" pTooltip="Toggle Theme" [icon]="themeIcon" (click)="toggleTheme()"
       class="p-button-text mr-2"></button>
   </div>
@@ -17,7 +14,7 @@
           <label for="connection">Connection</label>
           <div class="p-inputgroup">
             <p-dropdown id="connection" [options]="connections" [(ngModel)]="selectedConnection" optionLabel="name"
-              placeholder="Select a connection" styleClass="w-full" (onChange)="onConnectionChange($event)"
+              placeholder="Select a connection" class="input-lg" (onChange)="onConnectionChange($event)"
               [disabled]="connections.length === 0">
               <!-- Template for items in the dropdown list -->
               <ng-template pTemplate="item" let-connection>
@@ -118,8 +115,6 @@
       </p-card>
     </div>
   </div>
-
   <!-- Toast for notifications -->
   <p-toast></p-toast>
 </div>
-
