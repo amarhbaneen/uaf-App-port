@@ -23,23 +23,30 @@
               [disabled]="connections.length === 0">
               <!-- Template for items in the dropdown list -->
               <ng-template pTemplate="item" let-connection>
-                <div *ngIf="connection.id === 'separator'" class="connection-separator">
-                  {{connection.name}}
-                </div>
-                <div *ngIf="connection.id === ADD_NEW_CONNECTION.id" class="add-new-connection">
-                  <i class="pi pi-plus"></i> {{connection.name}}
-                </div>
-                <div *ngIf="connection.id !== 'separator' && connection.id !== ADD_NEW_CONNECTION.id">
-                  {{connection.name}}
-                </div>
-              </ng-template>
+                @if (connection.id === 'separator') {
+                  <div class="connection-separator">
+                    {{connection.name}}
+                  </div>
+                } @else if (connection.id === ADD_NEW_CONNECTION.id) {
+                  <div class="add-new-connection">
+                    <i class="pi pi-plus"></i> {{connection.name}}
+                  </div>
+                } @else {
+                  <div>
+                    {{connection.name}}
+                  </div>
+                }              </ng-template>
 
               <!-- Template for the selected value -->
               <ng-template pTemplate="value" let-connection>
-                <div *ngIf="connection && connection.id !== 'separator'" class="connection-value">
-                  <i *ngIf="connection.id === ADD_NEW_CONNECTION.id" class="pi pi-plus"></i>
-                  {{connection.name}}
-                </div>
+                @if (connection && connection.id !== 'separator') {
+                  <div class="connection-value">
+                    @if (connection.id === ADD_NEW_CONNECTION.id) {
+                      <i class="pi pi-plus"></i>
+                    }
+                    {{connection.name}}
+                  </div>
+                }
               </ng-template>
             </p-dropdown>
           </div>
@@ -115,13 +122,17 @@
             </div>
           </div>
 
-          <div *ngIf="connectionTestSuccess" class="connection-test-success">
-            <i class="pi pi-check-circle"></i> Connection test successful
-          </div>
+          @if (connectionTestSuccess) {
+            <div class="connection-test-success">
+              <i class="pi pi-check-circle"></i> Connection test successful
+            </div>
+          }
 
-          <div *ngIf="connectionTestError" class="connection-test-error">
-            <i class="pi pi-times-circle"></i> {{connectionTestError}}
-          </div>
+          @if (connectionTestError) {
+            <div class="connection-test-error">
+              <i class="pi pi-times-circle"></i> {{connectionTestError}}
+            </div>
+          }
 
           <div class="connection-actions">
             <p-button label="Test Connection"

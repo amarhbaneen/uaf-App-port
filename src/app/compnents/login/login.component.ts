@@ -338,10 +338,9 @@ export class LoginComponent implements OnInit {
   onConnectionChange(event: any) {
     if (this.selectedConnection) {
       if (this.selectedConnection.id === this.ADD_NEW_CONNECTION.id) {
-        // פתח את הדיאלוג
+
         this.openNewConnectionDialog();
 
-        // אפס את הבחירה אחרי "tick" כדי שה-dropdown יתעדכן
         setTimeout(() => {
           this.selectedConnection = null;
         }, 0);
