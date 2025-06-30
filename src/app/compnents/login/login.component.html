@@ -67,22 +67,26 @@
         <div class="p-fluid">
           <div class="field">
             <label for="connectionName">Connection Name</label>
-            <input id="connectionName" type="text" pInputText [(ngModel)]="newConnection.name" required />
+            <input id="connectionName" type="text" pInputText [(ngModel)]="newConnection.name" required
+              placeholder="Enter Connection Name" />
           </div>
 
           <div class="field">
             <label for="connectionUrl">Server URL</label>
-            <input id="connectionUrl" type="text" pInputText [(ngModel)]="newConnection.url" required />
+            <input id="connectionUrl" type="text" pInputText [(ngModel)]="newConnection.url" required
+              placeholder="Enter Server URL" />
           </div>
 
           <div class="field">
             <label for="connectionUsername">Username</label>
-            <input id="connectionUsername" type="text" pInputText [(ngModel)]="newConnection.username" required />
+            <input id="connectionUsername" type="text" pInputText [(ngModel)]="newConnection.username" required
+              placeholder="Enter Username" />
           </div>
 
           <div class="field">
             <label for="connectionPassword">Password</label>
-            <input id="connectionPassword" type="password" pInputText [(ngModel)]="newConnection.password" required />
+            <input id="connectionPassword" type="password" pInputText [(ngModel)]="newConnection.password" required
+              placeholder="Enter Password" />
           </div>
 
           <!-- Advanced connection options -->

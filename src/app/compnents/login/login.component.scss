@@ -82,7 +82,6 @@
 
 ::ng-deep .p-inputgroup {
   width: 100%;
-  // padding: 0.6rem 0.75rem;
   font-size: 1.1rem;
   max-width: 400px;
 }
@@ -243,3 +242,10 @@
     font-size: 0.9rem;
   }
 }
+
+input::placeholder,
+.p-inputtext::placeholder {
+  color: var(--text-color-secondary);
+  opacity: 1;
+}
+
