@@ -3,13 +3,14 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Card } from 'primeng/card';
 import { FormsModule } from '@angular/forms';
-import { ButtonDirective } from 'primeng/button';
+import {Button, ButtonDirective} from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
 import { Tooltip } from 'primeng/tooltip';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ConnectionService, Connection } from '../../services/connection.service';
+import {Password} from 'primeng/password';
 
 
 @Component({
@@ -24,7 +25,9 @@ import { ConnectionService, Connection } from '../../services/connection.service
     InputText,
     Tooltip,
     ToastModule,
-    DropdownModule
+    DropdownModule,
+    Button,
+    Password
   ],
   providers: [MessageService],
   styleUrls: ['./login.component.scss']
@@ -32,7 +35,6 @@ import { ConnectionService, Connection } from '../../services/connection.service
 export class LoginComponent implements OnInit {
   username = '';
   password = '';
-  showPassword: boolean = false;
   isDarkMode = false;
   themeIcon = 'pi pi-moon';
 
@@ -336,10 +338,9 @@ export class LoginComponent implements OnInit {
   onConnectionChange(event: any) {
     if (this.selectedConnection) {
       if (this.selectedConnection.id === this.ADD_NEW_CONNECTION.id) {
-        // פתח את הדיאלוג
+
         this.openNewConnectionDialog();
 
-        // אפס את הבחירה אחרי "tick" כדי שה-dropdown יתעדכן
         setTimeout(() => {
           this.selectedConnection = null;
         }, 0);

@@ -3,11 +3,24 @@
     <span class="text-xl font-bold">UAF Pilot</span>
   </ng-template>
   <ng-template pTemplate="end">
-    <button pButton type="button" pTooltip="Settings" icon="pi pi-cog" (click)="navigateToSettings()"
-      class="p-button-text mr-2"></button>
-    <button pButton type="button" pTooltip="Toggle Theme" [icon]="themeIcon" (click)="toggleTheme()"
-      class="p-button-text mr-2"></button>
-    <button pButton type="button" pTooltip="Logout" icon="pi pi-sign-out" (click)="logout()"
-      class="p-button-text"></button>
-  </ng-template>
+    <p-button type="button"
+              icon="pi pi-cog"
+              (onClick)="navigateToSettings()"
+              styleClass="p-button-text mr-2"
+              pTooltip="Settings">
+    </p-button>
+
+    <p-button type="button"
+              [icon]="themeIcon"
+              (onClick)="toggleTheme()"
+              styleClass="p-button-text mr-2"
+              pTooltip="Toggle Theme">
+    </p-button>
+
+    <p-button type="button"
+              icon="pi pi-sign-out"
+              (onClick)="logout()"
+              styleClass="p-button-text"
+              pTooltip="Logout">
+    </p-button>  </ng-template>
 </p-menubar>
