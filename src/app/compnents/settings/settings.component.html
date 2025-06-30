@@ -1,37 +1,41 @@
 <app-navbar></app-navbar>
 
-<div class="p-4">
+<div class="settings-container">
   <h2>Settings</h2>
 
-  <div class="grid mt-3">
-    <div class="col-12 md:col-6 lg:col-4">
+  <div class="cards-wrapper">
+    <!-- Appearance -->
+    <div class="card-column">
       <p-card header="Appearance">
-        <div class="flex align-items-center justify-content-between mb-3">
-          <label for="darkMode">Dark Mode</label>
-          <p-inputSwitch id="darkMode" [(ngModel)]="isDarkMode"
-            (ngModelChange)="onDarkModeChanged($event)"></p-inputSwitch>
-        </div>
+        <div class="card-content">
+          <div class="row">
+            <label for="darkMode">Dark Mode</label>
+            <p-inputSwitch id="darkMode" [(ngModel)]="isDarkMode" (ngModelChange)="onDarkModeChanged($event)">
+            </p-inputSwitch>
+          </div>
 
-        <p-divider></p-divider>
+          <p-divider></p-divider>
 
-        <div class="flex align-items-center justify-content-between">
-          <span>Theme</span>
-          <span class="text-primary">eg-factory</span>
+          <div class="row space-between">
+            <span>Theme</span>
+            <span class="text-primary">eg-factory</span>
+          </div>
         </div>
       </p-card>
     </div>
 
-    <div class="col-12 md:col-6 lg:col-4">
+    <!-- User Preferences -->
+    <div class="card-column">
       <p-card header="User Preferences">
-        <div class="flex flex-column gap-3">
-          <div class="flex align-items-center justify-content-between w-full">
+        <div class="card-content">
+          <div class="row space-between">
             <label for="language" class="font-medium">Language</label>
             <span id="language">English</span>
           </div>
 
           <p-divider></p-divider>
 
-          <div class="flex align-items-center justify-content-between">
+          <div class="row space-between">
             <label>Notifications</label>
             <p-inputSwitch [(ngModel)]="notificationsEnabled"></p-inputSwitch>
           </div>
@@ -39,17 +43,18 @@
       </p-card>
     </div>
 
-    <div class="col-12 md:col-6 lg:col-4">
+    <!-- Application -->
+    <div class="card-column">
       <p-card header="Application">
-        <div class="flex flex-column gap-3">
-          <div class="flex align-items-center justify-content-between">
+        <div class="card-content">
+          <div class="row space-between">
             <label>Version</label>
             <span>1.0.0</span>
           </div>
 
           <p-divider></p-divider>
 
-          <div class="flex justify-content-end">
+          <div class="row justify-end">
             <p-button label="Reset to Defaults"
                       styleClass="p-button-outlined">
             </p-button>
