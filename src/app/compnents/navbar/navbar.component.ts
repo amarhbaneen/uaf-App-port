@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Menubar } from 'primeng/menubar';
 import { PrimeTemplate } from 'primeng/api';
-import { ButtonDirective } from 'primeng/button';
+import {Button, ButtonDirective} from 'primeng/button';
 import { Tooltip } from 'primeng/tooltip';
 
 @Component({
@@ -14,6 +14,7 @@ import { Tooltip } from 'primeng/tooltip';
     PrimeTemplate,
     ButtonDirective,
     Tooltip,
+    Button,
   ],
   styleUrls: ['./navbar.component.scss']
 })

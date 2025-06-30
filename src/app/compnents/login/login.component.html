@@ -1,10 +1,12 @@
 <div class="login-wrapper">
   <div class="theme-toggle">
-    <button pButton type="button" pTooltip="Toggle Theme" tooltipPosition="left" [icon]="themeIcon"
-      (click)="toggleTheme()" class="p-button-text p-button-rounded"></button>
-
-    <button pButton type="button" pTooltip="Toggle Theme" [icon]="themeIcon" (click)="toggleTheme()"
-      class="p-button-text mr-2"></button>
+    <p-button type="button"
+              [icon]="themeIcon"
+              (onClick)="toggleTheme()"
+              styleClass="p-button-text md-2"
+              pTooltip="Toggle Theme"
+              tooltipPosition="top">
+    </p-button>
   </div>
 
   <div class="cards-container" [ngClass]="{'show-new-connection': showNewConnectionDialog}"
@@ -51,13 +53,28 @@
 
         <div class="field">
           <label for="password">Password</label>
-          <input id="password" type="password" pInputText [(ngModel)]="password" class="input-lg"
-            placeholder="Enter password" />
+          <p-password id="password"
+                      name="password"
+                      [(ngModel)]="password"
+                      #passwordModel="ngModel"
+                      [toggleMask]="true"
+                      placeholder="Enter your password"
+                      [feedback]="false"
+                      styleClass="w-full"
+                      inputStyleClass="w-full"
+                      required>
+          </p-password>
         </div>
 
-        <button pButton type="button" icon="pi pi-sign-in" class="p-button-rounded p-button-primary login-button"
-          [loading]="connectionTestInProgress" [disabled]="connectionTestInProgress" (click)="login()" pTooltip="Login"
-          tooltipPosition="top">
+        <button pButton
+                type="button"
+                icon="pi pi-sign-in"
+                class="p-button-primary login-button"
+                [loading]="connectionTestInProgress"
+                [disabled]="connectionTestInProgress"
+                (click)="login()"
+                pTooltip="Continue"
+                tooltipPosition="top">
         </button>
       </div>
     </p-card>
@@ -107,12 +124,23 @@
           </div>
 
           <div class="connection-actions">
-            <button pButton type="button" label="Test Connection" [disabled]="connectionTestInProgress"
-              [loading]="connectionTestInProgress" (click)="testConnection()" class="p-button-secondary"></button>
-            <button pButton type="button" label="Save" [disabled]="!connectionTestSuccess" (click)="saveConnection()"
-              class="p-button-success"></button>
-            <button pButton type="button" label="Cancel" (click)="cancelNewConnection()"
-              class="p-button-outlined"></button>
+            <p-button label="Test Connection"
+                      [disabled]="connectionTestInProgress"
+                      [loading]="connectionTestInProgress"
+                      (onClick)="testConnection()"
+                      styleClass="p-button-secondary">
+            </p-button>
+
+            <p-button label="Save"
+                      [disabled]="!connectionTestSuccess"
+                      (onClick)="saveConnection()"
+                      styleClass="p-button-success">
+            </p-button>
+
+            <p-button label="Cancel"
+                      (onClick)="cancelNewConnection()"
+                      styleClass="p-button-outlined">
+            </p-button>
           </div>
         </div>
       </p-card>

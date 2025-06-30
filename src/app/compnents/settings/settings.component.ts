@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Card } from 'primeng/card';
-import { ButtonDirective } from 'primeng/button';
+import {Button, ButtonDirective} from 'primeng/button';
 import { InputSwitch } from 'primeng/inputswitch';
 import { FormsModule } from '@angular/forms';
 import { Divider } from 'primeng/divider';
@@ -15,7 +15,8 @@ import { Divider } from 'primeng/divider';
     ButtonDirective,
     InputSwitch,
     FormsModule,
-    Divider
+    Divider,
+    Button
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
