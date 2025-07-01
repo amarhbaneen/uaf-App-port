@@ -10,8 +10,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
-    align-items: stretch; // 💡 חשוב לגובה שווה
+    align-items: stretch;
   }
+
 
   .card-column {
     flex: 1 1 100%;
@@ -27,21 +28,16 @@
       flex: 1 1 calc(33.333% - 1.5rem);
     }
 
+    ::ng-deep .p-card {
+      height: 100%;
+    }
+
     p-card {
       flex: 1 1 auto;
       display: flex;
       flex-direction: column;
       height: 100%;
     }
-  }
-
-  .card-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    gap: 1rem;
-    padding: 1rem 0;
   }
 
   .row {
@@ -60,12 +56,22 @@
     }
   }
 
-  .text-primary {
-    color: var(--primary-color, #c0392b);
-    font-weight: 500;
+  .row {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
   }
 
-  button.p-button-outlined {
-    min-width: 140px;
+  .space-between {
+    justify-content: space-between;
   }
+
+  .align-center {
+    align-items: center;
+  }
+
+  .card-content {
+    padding: 0.5rem 0;
+  }
+
 }
