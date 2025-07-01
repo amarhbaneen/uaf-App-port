@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 90vh;
   position: relative;
   z-index: 99;
   padding: 1rem;
@@ -40,6 +40,7 @@
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -56,16 +57,6 @@
 .login-title {
   text-align: center;
   margin-bottom: 1rem;
-}
-
-.input-lg,
-.p-inputtext.input-lg,
-::ng-deep input.input-lg {
-  width: 100%;
-  max-width: 400px;
-  padding: 0.6rem 0.75rem;
-  font-size: 1.1rem;
-  text-align: left;
 }
 
 .login-form,
@@ -144,6 +135,11 @@
 
 ::placeholder {
   color: var(--text-color-secondary);
+  opacity: 1;
+}
+
+::ng-deep input::placeholder {
+  color: var(--text-color-secondary) !important;
   opacity: 1;
 }
 
