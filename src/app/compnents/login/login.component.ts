@@ -3,14 +3,14 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Card } from 'primeng/card';
 import { FormsModule } from '@angular/forms';
-import {Button, ButtonDirective} from 'primeng/button';
+import { Button, ButtonDirective } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
 import { Tooltip } from 'primeng/tooltip';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ConnectionService, Connection } from '../../services/connection.service';
-import {Password} from 'primeng/password';
+import { Password } from 'primeng/password';
 
 
 @Component({
