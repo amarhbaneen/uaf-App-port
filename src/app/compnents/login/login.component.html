@@ -1,94 +1,71 @@
+<!-- HTML STRUCTURE -->
 <div class="login-wrapper">
   <div class="theme-toggle">
-    <p-button type="button"
-              [icon]="themeIcon"
-              (onClick)="toggleTheme()"
-              styleClass="p-button-text md-2"
-              pTooltip="Toggle Theme"
-              tooltipPosition="top">
+    <p-button type="button" [icon]="themeIcon" (onClick)="toggleTheme()" styleClass="p-button-text md-2"
+      pTooltip="Toggle Theme" tooltipPosition="top">
     </p-button>
   </div>
 
-  <div class="cards-container" [ngClass]="{'show-new-connection': showNewConnectionDialog}"
-    (transitionend)="onTransitionEnd($event)">
-    <!-- Login Card -->
-    <p-card>
-      <h2 class="login-title">Login</h2>
-      <div class="p-fluid login-form">
-        <div class="field">
-          <label for="connection">Connection</label>
-          <div class="p-inputgroup">
-            <p-dropdown id="connection" [options]="connections" [(ngModel)]="selectedConnection" optionLabel="name"
-              placeholder="Select a connection" class="input-lg" (onChange)="onConnectionChange($event)"
-              [disabled]="connections.length === 0">
-              <!-- Template for items in the dropdown list -->
-              <ng-template pTemplate="item" let-connection>
-                @if (connection.id === 'separator') {
-                  <div class="connection-separator">
-                    {{connection.name}}
-                  </div>
-                } @else if (connection.id === ADD_NEW_CONNECTION.id) {
-                  <div class="add-new-connection">
-                    <i class="pi pi-plus"></i> {{connection.name}}
-                  </div>
-                } @else {
-                  <div>
-                    {{connection.name}}
-                  </div>
-                }              </ng-template>
+  <div class="cards-container" [ngClass]="{'show-new-connection': showNewConnectionDialog}">
 
-              <!-- Template for the selected value -->
-              <ng-template pTemplate="value" let-connection>
-                @if (connection && connection.id !== 'separator') {
-                  <div class="connection-value">
-                    @if (connection.id === ADD_NEW_CONNECTION.id) {
-                      <i class="pi pi-plus"></i>
-                    }
+    <!-- LOGIN CARD -->
+    <div class="card-wrapper login-card-wrapper">
+      <p-card>
+        <h2 class="login-title">Login</h2>
+        <div class="p-fluid login-form">
+          <div class="field">
+            <label for="connection">Connection</label>
+            <div class="p-inputgroup">
+              <p-dropdown id="connection" [options]="connections" [(ngModel)]="selectedConnection" optionLabel="name"
+                placeholder="Select a connection" class="input-lg w-full" (onChange)="onConnectionChange($event)"
+                [disabled]="connections.length === 0">
+                <ng-template pTemplate="item" let-connection>
+                  <div *ngIf="connection.id === 'separator'; else defaultItem" class="connection-separator">
                     {{connection.name}}
                   </div>
-                }
-              </ng-template>
-            </p-dropdown>
+                  <ng-template #defaultItem>
+                    <div *ngIf="connection.id === ADD_NEW_CONNECTION.id; else normalItem" class="add-new-connection">
+                      <i class="pi pi-plus"></i> {{connection.name}}
+                    </div>
+                    <ng-template #normalItem>
+                      <div>{{connection.name}}</div>
+                    </ng-template>
+                  </ng-template>
+                </ng-template>
+                <ng-template pTemplate="value" let-connection>
+                  <div *ngIf="connection && connection.id !== 'separator'" class="connection-value">
+                    <i *ngIf="connection.id === ADD_NEW_CONNECTION.id" class="pi pi-plus"></i>
+                    {{connection.name}}
+                  </div>
+                </ng-template>
+              </p-dropdown>
+            </div>
           </div>
+
+          <div class="field">
+            <label for="username">Username</label>
+            <input id="username" type="text" pInputText [(ngModel)]="username" class="input-lg"
+              placeholder="Enter username" />
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <p-password id="password" name="password" [(ngModel)]="password" [toggleMask]="true"
+              placeholder="Enter your password" [feedback]="false" styleClass="w-full" inputStyleClass="input-lg"
+              required>
+            </p-password>
+          </div>
+
+          <button pButton type="button" icon="pi pi-sign-in" class="p-button-primary login-button"
+            [loading]="connectionTestInProgress" [disabled]="connectionTestInProgress" (click)="login()"
+            pTooltip="Continue" tooltipPosition="top">
+          </button>
         </div>
+      </p-card>
+    </div>
 
-        <div class="field">
-          <label for="username">Username</label>
-          <input id="username" type="text" pInputText [(ngModel)]="username" class="input-lg"
-            placeholder="Enter username" />
-        </div>
-
-        <div class="field">
-          <label for="password">Password</label>
-          <p-password id="password"
-                      name="password"
-                      [(ngModel)]="password"
-                      #passwordModel="ngModel"
-                      [toggleMask]="true"
-                      placeholder="Enter your password"
-                      [feedback]="false"
-                      styleClass="w-full"
-                      inputStyleClass="w-full"
-                      required>
-          </p-password>
-        </div>
-
-        <button pButton
-                type="button"
-                icon="pi pi-sign-in"
-                class="p-button-primary login-button"
-                [loading]="connectionTestInProgress"
-                [disabled]="connectionTestInProgress"
-                (click)="login()"
-                pTooltip="Continue"
-                tooltipPosition="top">
-        </button>
-      </div>
-    </p-card>
-
-    <!-- New Connection Card -->
-    <div class="card-wrapper new-connection-card-wrapper">
-      <!-- <p-card class="new-connection-card"> -->
+    <!-- NEW CONNECTION CARD -->
+    <div class="card-wrapper new-connection-card-wrapper" *ngIf="showNewConnectionDialog">
       <p-card>
         <h2>Add New Connection</h2>
         <div class="p-fluid">
@@ -116,7 +93,6 @@
               placeholder="Enter Password" />
           </div>
 
-          <!-- Advanced connection options -->
           <div class="advanced-options">
             <div class="p-field-checkbox">
               <input type="checkbox" id="withCredentials" [(ngModel)]="withCredentials"
@@ -126,41 +102,25 @@
             </div>
           </div>
 
-          @if (connectionTestSuccess) {
-            <div class="connection-test-success">
-              <i class="pi pi-check-circle"></i> Connection test successful
-            </div>
-          }
+          <div *ngIf="connectionTestSuccess" class="connection-test-success">
+            <i class="pi pi-check-circle"></i> Connection test successful
+          </div>
 
-          @if (connectionTestError) {
-            <div class="connection-test-error">
-              <i class="pi pi-times-circle"></i> {{connectionTestError}}
-            </div>
-          }
+          <div *ngIf="connectionTestError" class="connection-test-error">
+            <i class="pi pi-times-circle"></i> {{connectionTestError}}
+          </div>
 
           <div class="connection-actions">
-            <p-button label="Test Connection"
-                      [disabled]="connectionTestInProgress"
-                      [loading]="connectionTestInProgress"
-                      (onClick)="testConnection()"
-                      styleClass="p-button-secondary">
-            </p-button>
-
-            <p-button label="Save"
-                      [disabled]="!connectionTestSuccess"
-                      (onClick)="saveConnection()"
-                      styleClass="p-button-success">
-            </p-button>
-
-            <p-button label="Cancel"
-                      (onClick)="cancelNewConnection()"
-                      styleClass="p-button-outlined">
-            </p-button>
+            <p-button label="Test Connection" [disabled]="connectionTestInProgress" [loading]="connectionTestInProgress"
+              (onClick)="testConnection()" styleClass="p-button-secondary"></p-button>
+            <p-button label="Save" [disabled]="!connectionTestSuccess" (onClick)="saveConnection()"
+              styleClass="p-button-success"></p-button>
+            <p-button label="Cancel" (onClick)="cancelNewConnection()" styleClass="p-button-outlined"></p-button>
           </div>
         </div>
       </p-card>
     </div>
   </div>
-  <!-- Toast for notifications -->
+
   <p-toast></p-toast>
 </div>

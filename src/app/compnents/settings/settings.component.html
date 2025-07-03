@@ -8,12 +8,11 @@
     <div class="card-column">
       <p-card header="Appearance">
         <div class="card-content">
-          <div class="row">
+          <div class="row space-between align-center">
             <label for="darkMode">Dark Mode</label>
             <p-inputSwitch id="darkMode" [(ngModel)]="isDarkMode" (ngModelChange)="onDarkModeChanged($event)">
             </p-inputSwitch>
           </div>
-
           <p-divider></p-divider>
 
           <div class="row space-between">
@@ -55,8 +54,7 @@
           <p-divider></p-divider>
 
           <div class="row justify-end">
-            <p-button label="Reset to Defaults"
-                      styleClass="p-button-outlined">
+            <p-button label="Reset to Defaults" styleClass="p-button-outlined">
             </p-button>
           </div>
         </div>

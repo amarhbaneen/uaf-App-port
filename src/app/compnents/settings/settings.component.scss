@@ -13,6 +13,7 @@
     align-items: stretch; // Important for equal height
   }
 
+
   .card-column {
     flex: 1 1 100%;
     max-width: 100%;
@@ -26,16 +27,6 @@
     @media (min-width: 1024px) {
       flex: 1 1 calc(33.333% - 1.5rem);
     }
-  }
-
-  .card-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    gap: 1rem;
-    padding: 1rem 0;
-  }
 
   .row {
     display: flex;
@@ -53,12 +44,22 @@
     }
   }
 
-  .text-primary {
-    color: var(--primary-color, #c0392b);
-    font-weight: 500;
+  .row {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
   }
 
-  button.p-button-outlined {
-    min-width: 140px;
+  .space-between {
+    justify-content: space-between;
   }
+
+  .align-center {
+    align-items: center;
+  }
+
+  .card-content {
+    padding: 0.5rem 0;
+  }
+
 }
