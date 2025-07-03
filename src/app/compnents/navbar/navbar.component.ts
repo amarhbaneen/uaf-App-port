@@ -25,10 +25,11 @@ export class NavbarComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
+    // Check if dark mode is enabled in localStorage
     this.isDarkMode = localStorage.getItem('theme') === 'dark';
     this.updateThemeIcon();
 
-    // Toggle the class on <body> or use the service if you have one
+    // Apply the theme based on localStorage
     this.applyTheme();
   }
 
