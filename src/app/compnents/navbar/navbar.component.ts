@@ -19,26 +19,44 @@ import { Tooltip } from 'primeng/tooltip';
 })
 
 export class NavbarComponent implements OnInit {
-  isDarkMode = false;
-  themeIcon = 'pi pi-moon';
+  isDarkMode = true;
+  themeIcon = 'pi pi-sun';
 
   constructor(private router: Router) { }
 
   ngOnInit() {
+    // Check if dark mode is enabled in localStorage
     this.isDarkMode = localStorage.getItem('theme') === 'dark';
-    this.themeIcon = this.isDarkMode ? 'pi pi-sun' : 'pi pi-moon';
+    this.updateThemeIcon();
 
-    // Toggle the class on <body> or use the service if you have one
-    document.body.classList.toggle('dark', this.isDarkMode);
+    // Apply the theme based on localStorage
+    this.applyTheme();
   }
 
   toggleTheme() {
     this.isDarkMode = !this.isDarkMode;
-    this.themeIcon = this.isDarkMode ? 'pi pi-sun' : 'pi pi-moon';
+    this.updateThemeIcon();
 
-    // Toggle the class on <body> or use the service if you have one
-    document.body.classList.toggle('dark', this.isDarkMode);
+    // Apply the class or use the service if you have one
+    this.applyTheme();
+
+    // Save the choice to localStorage
     localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+  }
+
+  private updateThemeIcon() {
+    this.themeIcon = this.isDarkMode ? 'pi pi-sun' : 'pi pi-moon';
+  }
+
+  private applyTheme() {
+    const element = document.documentElement;
+    if (element !== null) {
+      // Uses the two-argument form of classList.toggle(className, force) -
+      //    this.isDarkMode == true ? 'dark' class will be added : will be removed;
+      //
+      // This ensures the dark class reflects the actual state of isDarkMode.
+      element.classList.toggle('dark', this.isDarkMode);
+    }
   }
 
   navigateToSettings() {
