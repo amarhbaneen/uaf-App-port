@@ -5,6 +5,9 @@
     "entryFile": "src/public-api.ts"
   },
   "assets": [
-    "./src/lib/themes/**/*.scss"
+    "./src/lib/themes/**/*.scss",
+    "./src/lib/themes/**/*.ts",
+    "./src/lib/components/**/*.scss",
+    "./src/styles.scss"
   ]
 }

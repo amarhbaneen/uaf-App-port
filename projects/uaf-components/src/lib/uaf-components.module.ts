@@ -4,6 +4,7 @@ import { UafLoginComponent } from './components/login/login.component';
 import { UafNavbarComponent } from './components/navbar/navbar.component';
 import { UafDashboardComponent } from './components/dashboard/dashboard.component';
 import { UafSettingsComponent } from './components/settings/settings.component';
+import { ConnectionService } from './services/connection.service';
 
 @NgModule({
   imports: [
@@ -19,6 +20,9 @@ import { UafSettingsComponent } from './components/settings/settings.component';
     UafNavbarComponent,
     UafDashboardComponent,
     UafSettingsComponent
+  ],
+  providers: [
+    ConnectionService
   ]
 })
 export class UafComponentsModule { }
