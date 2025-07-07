@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Menubar } from 'primeng/menubar';
 import { PrimeTemplate } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { Tooltip } from 'primeng/tooltip';
+import { ThemeService } from '../../services/theme.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -18,45 +20,38 @@ import { Tooltip } from 'primeng/tooltip';
   styleUrls: ['./navbar.component.scss']
 })
 
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   isDarkMode = true;
   themeIcon = 'pi pi-sun';
+  private themeSubscription: Subscription | null = null;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private themeService: ThemeService
+  ) { }
 
   ngOnInit() {
-    // Check if dark mode is enabled in localStorage
-    this.isDarkMode = localStorage.getItem('theme') === 'dark';
-    this.updateThemeIcon();
+    // Initialize from the theme service
+    this.isDarkMode = this.themeService.isDarkMode();
+    this.themeIcon = this.themeService.getThemeIcon();
 
-    // Apply the theme based on localStorage
-    this.applyTheme();
+    // Subscribe to theme changes
+    this.themeSubscription = this.themeService.darkMode$.subscribe(isDark => {
+      this.isDarkMode = isDark;
+      this.themeIcon = this.themeService.getThemeIcon();
+    });
+  }
+
+  ngOnDestroy() {
+    // Clean up subscription
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+      this.themeSubscription = null;
+    }
   }
 
   toggleTheme() {
-    this.isDarkMode = !this.isDarkMode;
-    this.updateThemeIcon();
-
-    // Apply the class or use the service if you have one
-    this.applyTheme();
-
-    // Save the choice to localStorage
-    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
-  }
-
-  private updateThemeIcon() {
-    this.themeIcon = this.isDarkMode ? 'pi pi-sun' : 'pi pi-moon';
-  }
-
-  private applyTheme() {
-    const element = document.documentElement;
-    if (element !== null) {
-      // Uses the two-argument form of classList.toggle(className, force) -
-      //    this.isDarkMode == true ? 'dark' class will be added : will be removed;
-      //
-      // This ensures the dark class reflects the actual state of isDarkMode.
-      element.classList.toggle('dark', this.isDarkMode);
-    }
+    this.themeService.toggleTheme();
   }
 
   navigateToSettings() {

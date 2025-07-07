@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Card } from 'primeng/card';
@@ -11,6 +11,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ConnectionService, Connection } from '../../services/connection.service';
 import { Password } from 'primeng/password';
+import { ThemeService } from '../../services/theme.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -32,11 +34,12 @@ import { Password } from 'primeng/password';
   providers: [MessageService],
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   username = '';
   password = '';
   isDarkMode = true;
   themeIcon = 'pi pi-sun';
+  private themeSubscription: Subscription | null = null;
 
   // Connection management
   connections: Connection[] = [];
@@ -65,25 +68,34 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private connectionService: ConnectionService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private themeService: ThemeService
   ) { }
 
   ngOnInit() {
-    // Check if dark mode is enabled in localStorage
-    this.isDarkMode = localStorage.getItem('theme') === 'dark';
-    this.updateThemeIcon();
+    // Initialize from the theme service
+    this.isDarkMode = this.themeService.isDarkMode();
+    this.themeIcon = this.themeService.getThemeIcon();
 
-    // Apply the theme based on localStorage
-    this.applyTheme();
-
-    // Add a MutationObserver to watch for changes to the body's class list
-    this.watchBodyClassChanges();
+    // Subscribe to theme changes
+    this.themeSubscription = this.themeService.darkMode$.subscribe(isDark => {
+      this.isDarkMode = isDark;
+      this.themeIcon = this.themeService.getThemeIcon();
+    });
 
     // Load saved connections
     this.loadConnections();
 
     // Configure the connection service with initial settings
     this.updateConnectionServiceConfig();
+  }
+
+  ngOnDestroy() {
+    // Clean up subscription
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+      this.themeSubscription = null;
+    }
   }
 
   /**
@@ -120,47 +132,11 @@ export class LoginComponent implements OnInit {
     ];
   }
 
-  // Watch for changes to the body's class list (for when theme is toggled from navbar)
-  private watchBodyClassChanges() {
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'class') {
-          const bodyHasDarkClass = document.body.classList.contains('dark');
-          if (this.isDarkMode !== bodyHasDarkClass) {
-            this.isDarkMode = bodyHasDarkClass;
-            this.updateThemeIcon();
-          }
-        }
-      });
-    });
-
-    observer.observe(document.body, { attributes: true });
-  }
-
-  private updateThemeIcon() {
-    this.themeIcon = this.isDarkMode ? 'pi pi-sun' : 'pi pi-moon';
-  }
-
+  /**
+   * Toggle between light and dark theme
+   */
   toggleTheme() {
-    this.isDarkMode = !this.isDarkMode;
-    this.updateThemeIcon();
-
-    // Apply the class or use the service if you have one
-    this.applyTheme();
-
-    // Save the choice to localStorage
-    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
-  }
-
-  private applyTheme() {
-    const element = document.documentElement;
-    if (element !== null) {
-      // Uses the two-argument form of classList.toggle(className, force) -
-      //    this.isDarkMode == true ? 'dark' class will be added : will be removed;
-      //
-      // This ensures the dark class reflects the actual state of isDarkMode.
-      element.classList.toggle('dark', this.isDarkMode);
-    }
+    this.themeService.toggleTheme();
   }
 
   /**
