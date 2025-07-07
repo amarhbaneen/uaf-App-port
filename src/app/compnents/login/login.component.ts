@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Card } from 'primeng/card';
@@ -12,7 +12,7 @@ import { MessageService } from 'primeng/api';
 import { ConnectionService, Connection } from '../../services/connection.service';
 import { Password } from 'primeng/password';
 import { ThemeService } from '../../services/theme.service';
-import { Subscription } from 'rxjs';
+import { ThemeAwareBase } from '../../shared/theme-aware.base';
 
 
 @Component({
@@ -34,12 +34,9 @@ import { Subscription } from 'rxjs';
   providers: [MessageService],
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent extends ThemeAwareBase {
   username = '';
   password = '';
-  isDarkMode = true;
-  themeIcon = 'pi pi-sun';
-  private themeSubscription: Subscription | null = null;
 
   // Connection management
   connections: Connection[] = [];
@@ -69,19 +66,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private connectionService: ConnectionService,
     private messageService: MessageService,
-    private themeService: ThemeService
-  ) { }
+    themeService: ThemeService
+  ) {
+    super(themeService);
+  }
 
-  ngOnInit() {
-    // Initialize from the theme service
-    this.isDarkMode = this.themeService.isDarkMode();
-    this.themeIcon = this.themeService.getThemeIcon();
-
-    // Subscribe to theme changes
-    this.themeSubscription = this.themeService.darkMode$.subscribe(isDark => {
-      this.isDarkMode = isDark;
-      this.themeIcon = this.themeService.getThemeIcon();
-    });
+  override ngOnInit() {
+    // Call the base class ngOnInit to handle theme initialization
+    super.ngOnInit();
 
     // Load saved connections
     this.loadConnections();
@@ -90,12 +82,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.updateConnectionServiceConfig();
   }
 
-  ngOnDestroy() {
-    // Clean up subscription
-    if (this.themeSubscription) {
-      this.themeSubscription.unsubscribe();
-      this.themeSubscription = null;
-    }
+  protected override usesThemeIcon(): boolean {
+    return true;
   }
 
   /**
@@ -132,12 +120,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     ];
   }
 
-  /**
-   * Toggle between light and dark theme
-   */
-  toggleTheme() {
-    this.themeService.toggleTheme();
-  }
 
   /**
    * Handles the login process
