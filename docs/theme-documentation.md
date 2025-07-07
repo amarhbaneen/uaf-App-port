@@ -221,9 +221,16 @@ You can customize the theme by overriding the styles in your application's style
     
     For example, you can use an Angular-specific CSS selector that lets a component's style react to a parent class and use `base.ts` for that:
     
-    ```scss
-    :host-context(.dark) {
-      background-color: var(--eg-surface-background);
+   ```scss
+    // Component styles that adapt to theme
+    :host {
+      background-color: var(--surface-a);
+      color: var(--text-color);
+   
+      // Dark mode specific overrides
+      :host-context(.dark) & {
+      // Additional dark mode styles if needed
+      }
     }
     ```
     
@@ -246,3 +253,137 @@ You can customize the theme by overriding the styles in your application's style
     ```
     
     This ensures your component auto-updates when dark mode is toggled.
+
+---
+
+## Theme Toggle
+
+This part provides comprehensive documentation for the theme toggling option in the Universal Framework NG. The theme system allows components to easily implement light/dark mode functionality with minimal code duplication.
+
+### Architecture
+
+The theme system consists of three main parts:
+
+1. *ThemeService* - A singleton service that manages the theme state
+2. *ThemeAwareBase* - An abstract base class that components can extend to get theme functionality
+3. *Component implementations* - Components that extend ThemeAwareBase
+
+#### ThemeService
+
+The `ThemeService` is responsible for:
+
+* Storing the current theme state (light or dark)
+* Providing methods to toggle or set the theme
+* Broadcasting theme changes to subscribers
+* Persisting theme preferences in localStorage
+* Applying theme classes to the DOM
+
+#### ThemeAwareBase
+
+The `ThemeAwareBase` class is an abstract class that:
+
+* Subscribes to theme changes from ThemeService
+* Provides properties for components to use (isDarkMode, themeIcon)
+* Handles cleanup of subscriptions
+* Provides a toggleTheme method
+
+#### Component Implementations
+
+Components that need theme functionality should extend `ThemeAwareBase` and:
+
+* Pass the ThemeService to the base class constructor
+* Override the usesThemeIcon method if they need the theme icon
+* Use the isDarkMode and themeIcon properties in their templates
+
+### How to Use
+
+#### Adding Theme Support to a New Component
+
+To add theme support to a new component:
+
+1. Import ThemeService and ThemeAwareBase
+2. Extend ThemeAwareBase
+3. Inject ThemeService and pass it to super()
+4. Override usesThemeIcon() if needed
+5. Use isDarkMode and themeIcon in your template
+
+```ts
+import { Component } from '@angular/core';
+import { ThemeService } from '../../services/theme.service';
+import { ThemeAwareBase } from '../../shared/theme-aware.base';
+
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.html',
+  styleUrls: ['./my-component.scss']
+})
+export class MyComponent extends ThemeAwareBase {
+  constructor(themeService: ThemeService) {
+      super(themeService);
+  }
+  
+  // Override this method if your component needs the theme icon
+  protected override usesThemeIcon(): boolean {
+      return true; // or false if you don't need the icon
+  }
+}
+```
+
+#### Using Theme Properties in Templates
+
+In your component's template, you can use the inherited properties:
+
+```html
+  <!-- Using isDarkMode for conditional rendering -->
+  <div [ngClass]="{'dark-content': isDarkMode, 'light-content': !isDarkMode}">
+    Content that changes with theme
+  </div>
+  
+  <!-- Using themeIcon for theme toggle button (if usesThemeIcon returns true) -->
+  <button pButton [icon]="themeIcon" (click)="toggleTheme()"></button>
+```
+
+### Best Practices
+
+#### Do's
+
+* DO extend ThemeAwareBase for components that need theme awareness
+* DO use the isDarkMode property for conditional rendering
+* DO override usesThemeIcon() to return true if your component displays a theme toggle icon
+* DO use the toggleTheme() method for theme toggle buttons
+
+#### Don'ts
+
+* DON'T directly manipulate the DOM to apply theme classes
+* DON'T store theme state in component properties
+* DON'T implement your own theme toggle logic
+* DON'T forget to pass ThemeService to super() in your constructor
+
+### Troubleshooting
+
+#### Common Issues
+
+##### Theme Not Updating
+
+If your component's theme is not updating when the theme is toggled:
+
+1. Ensure you're extending ThemeAwareBase
+2. Ensure you're passing ThemeService to super() in your constructor
+3. Check that you're using the isDarkMode property in your template
+
+##### Theme Icon Not Showing
+
+If the theme icon is not showing or updating:
+
+1. Ensure you've overridden usesThemeIcon() to return true
+2. Ensure you're using the themeIcon property in your template
+
+##### Memory Leaks
+
+The ThemeAwareBase class automatically handles subscription cleanup in ngOnDestroy. If you override ngOnDestroy in your component, make sure to call super.ngOnDestroy().
+
+### Conclusion
+
+The theme system provides a clean, reusable way to implement theme support in your components. By extending ThemeAwareBase, components automatically get theme state tracking, theme toggling, and proper cleanup of resources.
+
+---
