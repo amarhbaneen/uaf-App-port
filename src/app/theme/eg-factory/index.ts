@@ -88,7 +88,7 @@ import toolbar from "./components/toolbar";
 import virtualscroller from "./components/virtualscroller";
 import tooltip from "./components/tooltip";
 import ripple from "./components/ripple";
-import extend from "./components/extend";
+import extend from "./extend";
 
 export default {
     ...base,
