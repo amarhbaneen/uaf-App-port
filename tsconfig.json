@@ -15,6 +15,9 @@
     "target": "ES2022",
     "module": "preserve",
     "paths": {
+      "UFng-theme": [
+        "./dist/ufng-theme"
+      ],
       "uaf-components": [
         "./dist/uaf-components"
       ]
