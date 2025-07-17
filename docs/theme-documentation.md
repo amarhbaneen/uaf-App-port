@@ -1,6 +1,6 @@
 # 🧩 UFng Developer Design & Styling Guidelines
 
-**Project Stack:** Angular + PrimeNG + PrimeIcons + PrimeFlex + Custom Designer Theme
+**Project Stack:** Angular + PrimeNG + PrimeIcons + Custom Designer Theme
 
 ---
 
@@ -136,10 +136,8 @@ When this class is applied to the current element, all components will switch to
 
 ## 📌 Additional Notes
 
-- Use **PrimeFlex** for layout (e.g., grids, spacing utilities).
- 
 - Use **PrimeIcons** for iconography.
- 
+
 - Avoid defining styles manually unless the design requires it — always prefer design tokens.
 
 - Local SCSS should only be used for **component-specific overrides**, and even then with design token variables when possible.
@@ -183,7 +181,7 @@ You can customize the theme by overriding the styles in your application's style
     ```
 
     Thus, In the host component's SCSS or CSS, use those variables:
-    
+
     ```scss
     :host {
       background-color: var(--eg-surface-background);
@@ -191,67 +189,67 @@ You can customize the theme by overriding the styles in your application's style
       font-family: var(--eg-font-family-body);
     }
     ```
-    
+
     ➡️ These values will automatically update when the `.dark` class is present.
 
 
 2. **Make Sure the `.dark` Class is in the Scope** - You're using:
-    
+
     ```ts
     darkModeSelector: '.dark'
     ```
-    
+
     So your host app must:
-    
+
     - Add `.dark` to <html> (which is already done for the ready base and components).
-    
+
     - Write your styles so that they respond to that scope, if needed.
-    
+
     Usually, **you do NOT need to manually write `.dark` conditions** if you're using the CSS variables correctly.
-    
+
     But if you must override something directly, do this:
-    
+
     ```scss
     :host-context(.dark) {
     background-color: var(--eg-surface-dark-background);
     }
     ```
-    
+
 3. **Optional: Use the Same Design Tokens Even If Overriding is Required** - even when something has to be overrided manually, not handled by our theme, keep things fully aligned by preferring our token usage. Your host app can reference token names defined in `base.ts` or component theme files.
-    
+
     For example, you can use an Angular-specific CSS selector that lets a component's style react to a parent class and use `base.ts` for that:
-    
+
    ```scss
     // Component styles that adapt to theme
     :host {
       background-color: var(--surface-a);
       color: var(--text-color);
-   
+
       // Dark mode specific overrides
       :host-context(.dark) & {
       // Additional dark mode styles if needed
       }
     }
     ```
-    
+
     What this does:
-    
+
     - Applied the `background-color` using the `--eg-surface-background` variable (only) when `.dark` is somewhere in the ancestor DOM tree - typically `<html class="dark"`.
-    
+
 4. **Do NOT hardcode colors** (unless absolutely needed)
-    
+
     ❌ Avoid:
-    
+
     ```scss
     background-color: #fff; // or #121212
     ```
-    
+
     ✅ Use:
-    
+
     ```scss
     background-color: var(--eg-surface-background);
     ```
-    
+
     This ensures your component auto-updates when dark mode is toggled.
 
 ---
@@ -321,7 +319,7 @@ export class MyComponent extends ThemeAwareBase {
   constructor(themeService: ThemeService) {
       super(themeService);
   }
-  
+
   // Override this method if your component needs the theme icon
   protected override usesThemeIcon(): boolean {
       return true; // or false if you don't need the icon
@@ -338,7 +336,7 @@ In your component's template, you can use the inherited properties:
   <div [ngClass]="{'dark-content': isDarkMode, 'light-content': !isDarkMode}">
     Content that changes with theme
   </div>
-  
+
   <!-- Using themeIcon for theme toggle button (if usesThemeIcon returns true) -->
   <button pButton [icon]="themeIcon" (click)="toggleTheme()"></button>
 ```

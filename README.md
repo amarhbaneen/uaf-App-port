@@ -225,7 +225,7 @@ npm install @amarhbaneen/uaf-components
 The library requires the following peer dependencies:
 
 ```bash
-npm install primeng primeicons primeflex @primeng/themes
+npm install primeng primeicons @primeng/themes
 ```
 
 ### Basic Usage
