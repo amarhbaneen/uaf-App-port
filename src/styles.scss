@@ -1,8 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
-@import "tailwindcss";
-@import "primeicons/primeicons.css";
+@use "tailwindcss";
+@use "primeicons/primeicons.css";
 @plugin "tailwindcss-primeui";
 
 body {
   font-family: var(--eg-font-family-body);
+}
+
+@theme {
+
+}
+
+@layer base {
+
+}
+
+@layer components {
+
+}
+
+@layer utilities {
+
 }
