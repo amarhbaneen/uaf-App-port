@@ -1,6 +1,6 @@
 # 🧩 UFng Developer Design & Styling Guidelines
 
-**Project Stack:** Angular + PrimeNG + PrimeIcons + PrimeFlex + Custom Designer Theme
+**Project Stack:** Angular + PrimeNG + PrimeIcons + TailwindCSS + Custom Designer Theme
 
 ---
 
@@ -136,8 +136,8 @@ When this class is applied to the current element, all components will switch to
 
 ## 📌 Additional Notes
 
-- Use **PrimeFlex** for layout (e.g., grids, spacing utilities).
- 
+- Use **TailwindCSS** for layout (e.g., grids, spacing utilities).
+
 - Use **PrimeIcons** for iconography.
  
 - Avoid defining styles manually unless the design requires it — always prefer design tokens.

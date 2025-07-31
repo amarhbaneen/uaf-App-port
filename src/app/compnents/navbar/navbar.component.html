@@ -1,7 +1,9 @@
 <p-menubar>
+
   <ng-template pTemplate="start">
-    <span class="text-xl font-bold">UAF Pilot</span>
+    <span class="text-xl font-bold underline">UAF Pilot</span>
   </ng-template>
+
   <ng-template pTemplate="end">
     <p-button type="button" icon="pi pi-cog" (onClick)="navigateToSettings()" styleClass="p-button-text mr-2"
       pTooltip="Settings">
@@ -12,5 +14,6 @@
     </p-button>
 
     <p-button type="button" icon="pi pi-sign-out" (onClick)="logout()" styleClass="p-button-text" pTooltip="Logout">
-    </p-button> </ng-template>
+    </p-button>
+  </ng-template>
 </p-menubar>

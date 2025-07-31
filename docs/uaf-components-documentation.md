@@ -19,7 +19,7 @@ npm install @amarhbaneen/uaf-components
 The library requires the following peer dependencies:
 
 ```bash
-npm install primeng primeicons primeflex @primeng/themes
+npm install primeng primeicons @primeng/themes tailwindcss @tailwindcss/postcss postcss
 ```
 
 ## Module Integration
@@ -137,7 +137,7 @@ The theme includes:
 - Basic styling for all components
 - Dark mode support (activated by adding the 'dark' class to the body element)
 - PrimeNG component styling
-- PrimeIcons and PrimeFlex CSS
+- PrimeIcons and TailwindCSS
 
 To toggle between light and dark mode, you can use the following code:
 
@@ -186,7 +186,7 @@ After updating, make sure to check the changelog for any breaking changes or new
 
 - [Angular Documentation](https://angular.dev/)
 - [PrimeNG Documentation](https://primeng.org/)
-- [PrimeFlex Documentation](https://primeflex.org/)
+- [TailwindCSS with PrimeNG Documenataion](https://primeng.org/tailwind)
 - [PrimeIcons Documentation](https://primeng.org/icons)
 
 ## Contribution
