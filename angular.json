@@ -42,7 +42,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "3MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -92,6 +92,39 @@
             ],
             "styles": [
               "src/styles.scss"
+            ]
+          }
+        }
+      }
+    },
+    "uaf-ng": {
+      "projectType": "library",
+      "root": "projects/uaf-ng",
+      "sourceRoot": "projects/uaf-ng/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/uaf-ng/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/uaf-ng/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/uaf-ng/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/uaf-ng/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
             ]
           }
         }

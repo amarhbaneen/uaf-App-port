@@ -138,9 +138,16 @@ uaf-App-port/
   - Secure login functionality with connection testing
   - JWT token extraction from server responses
   - Automatic handling of various token formats
+  - Support for custom token property names in server responses
+  - Fallback to common token property names (token, access_token, jwt, id_token, jwt_token)
   - Comprehensive error handling for authentication failures
 
 - **Dashboard Interface**: Central hub for application features
+
+- **Dynamic Navbar**: 
+  - Customizable title that can be changed from other applications
+  - Configurable buttons that can be added, removed, or modified from other applications
+  - Services for dynamic navbar customization (TitleService, NavbarConfigService)
 
 - **Custom PrimeNG Theme**: 
   - Consistent styling across all components
@@ -179,6 +186,7 @@ uaf-App-port/
 1. **Adding a Connection**:
    - On the login page, click the dropdown and select "Add New Connection"
    - Enter a name for the connection, the server URL, and your credentials
+   - Optionally, specify a custom token property name if your backend uses a non-standard property name for the JWT token
    - Click "Test Connection" to verify the connection works
    - If the test is successful, click "Save" to store the connection
 
@@ -201,6 +209,10 @@ uaf-App-port/
 1. **Dashboard**: After successful login, you'll be redirected to the dashboard
 2. **Theme Toggle**: Use the theme toggle button in the navbar or login page to switch between light and dark modes
 3. **Logout**: Click the logout button in the navbar to return to the login page
+4. **Navbar Customization**: The navbar title and buttons can be customized from other applications:
+   - Change the title using the `TitleService`
+   - Configure buttons using the `NavbarConfigService`
+   - For detailed examples, see the [Navbar Customization Guide](docs/navbar-customization.md)
 
 ## Additional Resources
 
