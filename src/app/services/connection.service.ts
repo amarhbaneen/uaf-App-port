@@ -11,6 +11,7 @@ export interface Connection {
   password?: string;
   token?: string;
   disabled?: boolean;
+  tokenPropertyName?: string; // Custom property name for the token in the response
 }
 
 @Injectable({
@@ -18,6 +19,7 @@ export interface Connection {
 })
 export class ConnectionService {
   private readonly CONNECTIONS_STORAGE_KEY = '';
+  private readonly TOKEN_STORAGE_KEY = 'auth_token';
 
   // Configuration options
   private config = {
@@ -96,7 +98,7 @@ export class ConnectionService {
 
     // Create request body with credentials
     const body = {
-      username: connection.username,
+      userName: connection.username,
       password: connection.password
     };
 
@@ -133,29 +135,48 @@ export class ConnectionService {
         // Extract JWT token from parsed response if available
         if (responseBody) {
           if (typeof responseBody === 'object') {
-            // Check different common token property names in JSON response
-            if (responseBody.token) {
+            // First check for user-defined token property name if provided
+            if (connection.tokenPropertyName && responseBody[connection.tokenPropertyName]) {
+              connection.token = responseBody[connection.tokenPropertyName];
+              this.saveToken(responseBody[connection.tokenPropertyName]);
+            }
+            // Then check different common token property names in JSON response
+            else if (responseBody.token) {
               connection.token = responseBody.token;
+              this.saveToken(responseBody.token);
             } else if (responseBody.access_token) {
               connection.token = responseBody.access_token;
+              this.saveToken(responseBody.access_token);
             } else if (responseBody.jwt) {
               connection.token = responseBody.jwt;
+              this.saveToken(responseBody.jwt);
             } else if (responseBody.id_token) {
               connection.token = responseBody.id_token;
+              this.saveToken(responseBody.id_token);
+            } else if (responseBody.jwt_token) {
+              connection.token = responseBody.jwt_token;
+              this.saveToken(responseBody.jwt_token);
             } else {
               // If no token found in JSON, create a placeholder
-              connection.token = 'jwt-token-' + Math.random().toString(36).substring(2);
+              const placeholderToken = 'jwt-token-' + Math.random().toString(36).substring(2);
+              connection.token = placeholderToken;
+              this.saveToken(placeholderToken);
             }
           } else if (typeof responseBody === 'string' && responseBody.length > 10) {
             // Some APIs return the token directly as a string
             connection.token = responseBody;
+            this.saveToken(responseBody);
           } else {
             // For other types or short strings, create a placeholder
-            connection.token = 'jwt-token-' + Math.random().toString(36).substring(2);
+            const placeholderToken = 'jwt-token-' + Math.random().toString(36).substring(2);
+            connection.token = placeholderToken;
+            this.saveToken(placeholderToken);
           }
         } else {
           // If response body is empty but status is 200, create a placeholder
-          connection.token = 'jwt-token-' + Math.random().toString(36).substring(2);
+          const placeholderToken = 'jwt-token-' + Math.random().toString(36).substring(2);
+          connection.token = placeholderToken;
+          this.saveToken(placeholderToken);
         }
 
         return { ...connection } as Connection;
@@ -187,7 +208,9 @@ export class ConnectionService {
             console.log('Raw response:', rawResponse);
 
             // Create a placeholder token since we couldn't parse the response
-            connection.token = 'jwt-token-' + Math.random().toString(36).substring(2);
+            const placeholderToken = 'jwt-token-' + Math.random().toString(36).substring(2);
+            connection.token = placeholderToken;
+            this.saveToken(placeholderToken);
 
             // Return the connection as if it was successful
             return new Observable<Connection>(observer => {
@@ -252,5 +275,28 @@ export class ConnectionService {
    */
   private generateUniqueId(): string {
     return Date.now().toString(36) + Math.random().toString(36).substring(2);
+  }
+
+  /**
+   * Save authentication token to localStorage
+   * @param token The authentication token to save
+   */
+  saveToken(token: string): void {
+    localStorage.setItem(this.TOKEN_STORAGE_KEY, token);
+  }
+
+  /**
+   * Get authentication token from localStorage
+   * @returns The stored authentication token or null if not found
+   */
+  getToken(): string | null {
+    return localStorage.getItem(this.TOKEN_STORAGE_KEY);
+  }
+
+  /**
+   * Remove authentication token from localStorage
+   */
+  clearToken(): void {
+    localStorage.removeItem(this.TOKEN_STORAGE_KEY);
   }
 }
