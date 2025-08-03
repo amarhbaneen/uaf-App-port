@@ -59,7 +59,8 @@ export class LoginComponent extends ThemeAwareBase {
   readonly ADD_NEW_CONNECTION: Connection = {
     id: 'add-new-connection',
     name: 'Add New Connection',
-    url: ''
+    url: '',
+    tokenPropertyName: ''
   };
 
   constructor(
@@ -206,7 +207,8 @@ export class LoginComponent extends ThemeAwareBase {
       name: '',
       url: '',
       username: '',
-      password: ''
+      password: '',
+      tokenPropertyName: ''
     };
     this.connectionTestSuccess = false;
     this.connectionTestError = '';

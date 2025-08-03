@@ -25,6 +25,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build:lib": "ng build uaf-components --configuration production",
+    "build:uaf-ng": "ng build uaf-ng --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "prepublishOnly": "npm run build:lib",

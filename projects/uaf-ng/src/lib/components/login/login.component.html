@@ -93,6 +93,13 @@
               placeholder="Enter Password" />
           </div>
 
+          <div class="field">
+            <label for="tokenPropertyName">Token Property Name (Optional)</label>
+            <input id="tokenPropertyName" type="text" pInputText [(ngModel)]="newConnection.tokenPropertyName"
+              placeholder="e.g., jwt_token, access_token" />
+            <small class="help-text">Specify the property name that contains the token in the server response</small>
+          </div>
+
           <div class="advanced-options">
             <div class="p-field-checkbox">
               <input type="checkbox" id="withCredentials" [(ngModel)]="withCredentials"

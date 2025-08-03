@@ -38,6 +38,7 @@ compnents/
 The login component includes a comprehensive connection management system that allows users to:
 - Select from previously saved connections
 - Add new connections with a name, URL, username, and password
+- Specify a custom token property name for backends that use non-standard property names for JWT tokens
 - Test connections before saving them
 - Configure advanced connection options (e.g., withCredentials for CORS)
 
@@ -62,12 +63,20 @@ The login component is the default route of the application. Users must authenti
 
 **Features**:
 - Navigation menu using PrimeNG Menubar
+- Dynamic title that can be changed from other applications
+- Dynamic buttons that can be configured from other applications
 - Theme toggle functionality (light/dark mode)
 - Logout functionality
 - Responsive design
 
+**Services**:
+- `TitleService`: Allows changing the navbar title dynamically
+- `NavbarConfigService`: Allows configuring navbar buttons dynamically
+
 **Usage**:
 The navbar component is included in the dashboard and provides consistent navigation throughout the application. It allows users to toggle between light and dark themes and to log out of the application.
+
+The navbar title and buttons can be customized from other applications using the TitleService and NavbarConfigService. For detailed information on how to customize the navbar, see the [Navbar Customization Guide](navbar-customization.md).
 
 ## Dashboard Component
 
