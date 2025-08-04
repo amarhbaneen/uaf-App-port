@@ -1,6 +1,6 @@
 {
   "name": "uaf-ng",
-  "version": "0.1.2",
+  "version": "0.1.6",
   "peerDependencies": {
     "@angular/common": "^19.2.0",
     "@angular/core": "^19.2.0"

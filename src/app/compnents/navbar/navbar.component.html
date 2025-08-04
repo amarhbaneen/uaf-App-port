@@ -1,19 +1,17 @@
 <p-menubar>
-
   <ng-template pTemplate="start">
-    <span class="text-xl font-bold">UAF Pilot</span>
+    <span class="text-xl font-bold">{{ title }}</span>
   </ng-template>
-
   <ng-template pTemplate="end">
-    <p-button type="button" icon="pi pi-cog" (onClick)="navigateToSettings()" styleClass="p-button-text mr-2"
-      pTooltip="Settings">
-    </p-button>
-
-    <p-button type="button" [icon]="themeIcon" (onClick)="toggleTheme()" styleClass="p-button-text mr-2"
-      pTooltip="Toggle Theme">
-    </p-button>
-
-    <p-button type="button" icon="pi pi-sign-out" (onClick)="logout()" styleClass="p-button-text" pTooltip="Logout">
-    </p-button>
+    <ng-container *ngFor="let button of buttons; trackBy: trackById">
+      <p-button
+        *ngIf="button.visible !== false"
+        type="button"
+        [icon]="button.id === 'theme' ? themeIcon : button.icon"
+        (onClick)="handleButtonClick(button)"
+        [styleClass]="button.styleClass || 'p-button-text'"
+        [pTooltip]="button.tooltip">
+      </p-button>
+    </ng-container>
   </ng-template>
 </p-menubar>
