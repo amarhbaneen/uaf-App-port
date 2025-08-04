@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Card } from 'primeng/card';
@@ -71,8 +71,6 @@ export class LoginComponent extends ThemeAwareBase {
   ) {
     super(themeService);
   }
-  @Input() logInHandler?: () => void;
-
 
   override ngOnInit() {
     // Call the base class ngOnInit to handle theme initialization
@@ -173,12 +171,9 @@ export class LoginComponent extends ThemeAwareBase {
               summary: 'Connection Successful',
               detail: 'Successfully connected to the server'
             });
-            if(this.logInHandler){
-              this.logInHandler();
-            }
-            else {
-              this.router.navigate(['/dashboard']);
-            }
+
+            // Navigate to dashboard
+            this.router.navigate(['/dashboard']);
           },
           error: (error) => {
             this.connectionTestInProgress = false;

@@ -6,25 +6,13 @@ import { Button } from 'primeng/button';
 import { Tooltip } from 'primeng/tooltip';
 import { NgFor, NgIf } from '@angular/common';
 import { ThemeService } from '../../services/theme.service';
-import { TitleService } from '../../services/title.service';
-import { NavbarConfigService, NavbarButton } from '../../services/navbar-config.service';
 import { ThemeAwareBase } from '../../shared/theme-aware.base';
 import { Subscription } from 'rxjs';
+import { TitleService } from '../../services/title.service';
+import { NavbarConfigService, NavbarButton } from '../../services/navbar-config.service';
 
 /**
  * Navigation bar component for the application
- *
- * This component provides:
- * - Application navigation
- * - Dynamic title that can be changed from other applications
- * - Dynamic buttons that can be configured from other applications
- * - Theme toggle functionality
- * - Logout functionality
- *
- * The title can be changed using the TitleService.
- * The buttons can be configured using the NavbarConfigService.
- *
- * It extends ThemeAwareBase to inherit theme-related functionality.
  */
 @Component({
   selector: 'app-navbar',
@@ -40,7 +28,6 @@ import { Subscription } from 'rxjs';
   ],
   styleUrls: ['./navbar.component.scss']
 })
-
 export class NavbarComponent extends ThemeAwareBase implements OnDestroy {
   /**
    * The current application title
@@ -61,6 +48,9 @@ export class NavbarComponent extends ThemeAwareBase implements OnDestroy {
    * Subscription to buttons changes
    */
   private buttonsSubscription: Subscription | undefined;
+
+  @Input() logoutHandler?: () => void;
+  @Input() titleHandler?: () => void;
 
   /**
    * Constructor
@@ -111,43 +101,18 @@ export class NavbarComponent extends ThemeAwareBase implements OnDestroy {
     }
   }
 
-  @Input() logoutHandler?: () => void;
-  @Input() titleHandler?: () => void;
-
-
-  /**
-   * Indicate that this component uses the theme icon
-   *
-   * @returns {boolean} true to enable theme icon functionality
-   */
   protected override usesThemeIcon(): boolean {
-    // This component displays a theme toggle icon, so return true
     return true;
   }
 
-  /**
-   * Navigate to the settings page
-   *
-   * This method is called when the user clicks the settings button.
-   */
   navigateToSettings() {
-    // Use the Angular Router to navigate to the settings page
     this.router.navigate(['/settings']);
   }
 
-  /**
-   * Log out the current user
-   *
-   * This method is called when the user clicks the logout button.
-   * Currently, it simply navigates to the login page.
-   */
   logout() {
-    // Placeholder logout logic - in a real app, this would clear session data
-    // and perform other logout-related tasks before navigation
-    if(this.logoutHandler){
+    if (this.logoutHandler) {
       this.logoutHandler();
-    }
-    else {
+    } else {
       this.router.navigate(['/login']);
     }
   }
@@ -161,6 +126,12 @@ export class NavbarComponent extends ThemeAwareBase implements OnDestroy {
     // If the button has a custom onClick handler, use it
     if (button.onClick) {
       button.onClick();
+      return;
+    }
+
+    // If the button has a route, navigate to it
+    if (button.route) {
+      this.router.navigate([button.route]);
       return;
     }
 
@@ -178,5 +149,9 @@ export class NavbarComponent extends ThemeAwareBase implements OnDestroy {
       default:
         console.warn(`No handler defined for button with ID: ${button.id}`);
     }
+  }
+
+  trackById(index: number, button: NavbarButton): string {
+    return button.id;
   }
 }

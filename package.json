@@ -29,7 +29,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "prepublishOnly": "npm run build:lib",
-    "publish:lib": "npm publish ./dist/uaf-components --access=public"
+    "publish:lib": "npm publish ./dist/uaf-components --access=public",
+    "publish:uaf-ng": "npm publish ./dist/uaf-ng"
   },
   "private": false,
   "dependencies": {

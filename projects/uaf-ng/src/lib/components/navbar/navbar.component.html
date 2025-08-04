@@ -1,8 +1,18 @@
 <p-menubar>
   <ng-template pTemplate="start">
-    <span class="text-xl font-bold">{{ title }}</span>
+    <div class="flex items-center space-x-2">
+      <!-- Title -->
+      <span class="text-xl font-bold whitespace-nowrap">
+        {{ title }}
+      </span>
+
+      <!-- Custom buttons injected from parent -->
+      <ng-content select="[navbar-buttons]"></ng-content>
+    </div>
   </ng-template>
+
   <ng-template pTemplate="end">
+    <!-- Built-in buttons rendered on the right -->
     <ng-container *ngFor="let button of buttons">
       <p-button
         *ngIf="button.visible !== false"

@@ -1,0 +1,164 @@
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  position: relative;
+  z-index: 99;
+  padding: 1rem;
+  background-color: var(--surface-ground);
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  width: 100%;
+  gap: 2rem;
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.card-wrapper {
+  transition: all 0.6s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.login-card-wrapper,
+.new-connection-card-wrapper {
+  flex: 1 1 100%;
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.login-form,
+.p-fluid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.field {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.login-button {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+}
+
+.advanced-options {
+  margin: 0.75rem 0;
+  padding: 0.5rem;
+  background-color: var(--surface-card);
+  border: 1px solid var(--surface-border);
+  border-radius: 4px;
+  width: 100%;
+  max-width: 400px;
+  font-size: 0.9rem;
+}
+
+.connection-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 1rem;
+  border-top: 1px solid var(--surface-border);
+  padding-top: 0.75rem;
+}
+
+.connection-test-success,
+.connection-test-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 4px;
+  padding: 0.5rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.connection-test-success {
+  background-color: rgba(var(--green-rgb, 0, 128, 0), 0.1);
+  color: var(--green-500);
+}
+
+.connection-test-error {
+  background-color: rgba(var(--red-rgb, 255, 0, 0), 0.1);
+  color: var(--red-500);
+}
+
+::ng-deep .p-password input::placeholder {
+  color: var(--text-color-secondary);
+  opacity: 1;
+}
+
+::placeholder {
+  color: var(--text-color-secondary);
+  opacity: 1;
+}
+
+::ng-deep input::placeholder {
+  color: var(--text-color-secondary) !important;
+  opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .cards-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .card-wrapper {
+    max-width: 100%;
+  }
+
+  .theme-toggle {
+    top: 10px;
+    right: 10px;
+  }
+
+  .login-wrapper {
+    padding: 0.5rem;
+  }
+}
